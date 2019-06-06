@@ -3,7 +3,7 @@ class CLI
 
   def call
     self.greeting
-    RecipeScraper.scrape_recipe_items
+    RecipeScraper.scrape_recipe_name
   end
 
   def greeting
