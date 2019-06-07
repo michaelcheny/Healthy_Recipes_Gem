@@ -65,7 +65,7 @@ class RecipeScraper
       Recipes.new(name, url, category, animal_friendly)
     
     end
-    binding.pry
+    # binding.pry
   end
 
   # scrape level 2 for recipe and instructions

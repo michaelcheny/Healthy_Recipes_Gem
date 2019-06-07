@@ -5,7 +5,7 @@ class Recipes
 
   @@all = []
 
-  attr_accessor :name, :url, :type, :animal_friendly, :categories
+  attr_accessor :name, :url, :type, :animal_friendly, :categories, :recipes
 
 
     ## will need to initialize recipes with more attrs
@@ -14,7 +14,7 @@ class Recipes
     @url = url
     @category = category
     @animal_friendly = animal_friendly
-    @@all << self
+    @recipe = []
   end
 
   def self.all
@@ -30,7 +30,17 @@ class Recipes
   # add prep and cook time
   # add calories
   # add macros
-
+  def save
+    @@all << self
+  end
   
+  def self.destroy_all
+    @@all.clear
+  end
+
+  def self.create(name)
+    
+  end
+
 
 end

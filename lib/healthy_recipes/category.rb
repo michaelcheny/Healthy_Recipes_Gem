@@ -21,7 +21,7 @@ class Category
     binding.pry
     @categories << recipe
     recipe.categories = self
-    binding.pry
+    # binding.pry
   end
 
   def categories
