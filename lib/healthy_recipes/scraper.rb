@@ -7,10 +7,9 @@ class RecipeScraper
   #   scrape_category("breakfast")
   # end
 
-  def self.seperate_categories(category)
+  def self.scrape_recipe_by_categories(category)
     
     case category
-      ## carnivore
     when "breakfast"
       selector = "breakfast"
     when "salad"
@@ -31,7 +30,7 @@ class RecipeScraper
       selector = "sideveg"
     when "dessert"
       selector = "dessert"
-    ## herbivore
+
     when "vegan breakfast"
       selector = "vbreakfast"
     when "vegan salad"
@@ -50,7 +49,7 @@ class RecipeScraper
 
     parsed_url = Nokogiri::HTML(open(DOMAIN + PATH_TO_RECIPE))
     recipe_container = parsed_url.css("div.slot-6-7-8")
-    recipe_container.css("h3##{selector}+ul.blist li a").each do |dish|
+    recipe_container.css("h3##{selector}+ul.blist li a").each do |dish|  
 
         ## clean up leading white space
       name = dish.text.gsub(/^[ \t]/, "")
@@ -62,7 +61,6 @@ class RecipeScraper
       category = "#{category.split.map(&:capitalize).join(" ")}"
 
       animal_friendly = category.include?("Vegan") ? "Yes" : "No"
-      # animal_friendly = 
 
       Recipes.new(name, url, category, animal_friendly)
     
