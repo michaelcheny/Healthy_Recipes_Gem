@@ -1,17 +1,17 @@
+require 'nokogiri'
+
 class RecipeScraper
 
   STATIC_URL = "http://www.whfoods.com/recipestoc.php"
 
   @@category = []
 
-  def self.scrape_categories
-    scrape_category("breakfast")
-  end
+  # def self.scrape_categories
+  #   scrape_category("breakfast")
+  # end
 
   def self.seperate_categories(category)
-    parsed_url = Nokogiri::HTML(open(STATIC_URL))
-    # recipe_container = parsed_url.css("div.slot-6-7-8")
-
+    
     selector = "li a"
 
     case category
@@ -40,22 +40,26 @@ class RecipeScraper
 
     # binding.pry
 
+    parsed_url = Nokogiri::HTML(open(STATIC_URL))
+    # recipe_container = parsed_url.css("div.slot-6-7-8")
+
 
     recipe_container = parsed_url.css("div.slot-6-7-8")
-    recipe_container.css(selector).each do |dish|
+    recipe_container.css("h3##{selector}+ul.blist").each do |dish|
+      # binding.pry
       name = dish.text.gsub(/^[ \t]/, "")
       url = "http://www.whfoods.com/#{dish.attr("href")}"
       
         ## add food category and animalfriendly
 
 
-      binding.pry
+      # binding.pry
 
 
 
         # binding.pry
         #try to add food category
-      category = recipe_container.css("h3").text if recipe_container.css("ul.blist~li a")
+      category = "#{selector}"
       animal_friendly = 
 
       Recipes.new(name, url, category, animal_friendly)
@@ -131,4 +135,4 @@ class RecipeScraper
 
 end
 
-RecipeScraper.seperate_categories("breakfast")
+# RecipeScraper.seperate_categories("breakfast")
