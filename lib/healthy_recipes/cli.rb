@@ -3,7 +3,8 @@ class CLI
 
   def call
     self.greeting
-    RecipeScraper.scrape_recipe_name
+    # RecipeScraper.scrape_recipe_name_and_url_non_vegan
+    RecipeScraper.seperate_categories
   end
 
   def greeting
@@ -11,7 +12,7 @@ class CLI
     puts "testing"
     puts "Welcome"
     puts "we're gonna scrape this site for the nutritional values of foods"
-    puts "https://www.nutritionix.com/database/common-foods"
+    puts "www.whfoods.com"
     puts "stay put, these are just placeholder texts"
     puts ""
   end

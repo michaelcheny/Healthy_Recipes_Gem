@@ -19,6 +19,12 @@ class Recipes
     @@all
   end
 
+  # add recipe
+  # add ingredients 
+  # add prep and cook time
+  # add calories
+  # add macros
+
   
 
 end
