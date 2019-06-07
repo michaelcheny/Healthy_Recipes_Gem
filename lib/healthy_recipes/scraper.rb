@@ -11,10 +11,28 @@ class RecipeScraper
     recipe_container = parsed_url.css("div.slot-6-7-8")
 
     hello = recipe_container.css("ul.blist").text.split("\n")
-
+      ## Non-animal friendly dishes
     breakfast = recipe_container.css("h3#breakfast+ul.blist").text.split("\n").reject(&:empty?)
+    salad_entrees = recipe_container.css("h3#salad+ul.blist").text.split("\n").reject(&:empty?)
+    soups = recipe_container.css("h3#soup+ul.blist").text.split("\n").reject(&:empty?)
+    fish = recipe_container.css("h3#fish+ul.blist").text.split("\n").reject(&:empty?)
+    poultry = recipe_container.css("h3#poultry+ul.blist").text.split("\n").reject(&:empty?)
+    meat = recipe_container.css("h3#meat+ul.blist").text.split("\n").reject(&:empty?)
+    vetetarian = recipe_container.css("h3#vegetarian+ul.blist").text.split("\n").reject(&:empty?)
+    side_salad = recipe_container.css("h3#sidesalad+ul.blist").text.split("\n").reject(&:empty?)
+    side_vege = recipe_container.css("h3#sideveg+ul.blist").text.split("\n").reject(&:empty?)
+    dessert = recipe_container.css("h3#dessert+ul.blist").text.split("\n").reject(&:empty?)
 
+      ## Animal friendly dishes
+    vegan_breakfast = recipe_container.css("h3#vbreakfast+ul.blist").text.split("\n").reject(&:empty?)
+    vegan_salads = recipe_container.css("h3#vsalad+ul.blist").text.split("\n").reject(&:empty?)
+    vegan_soups = recipe_container.css("h3#vsoup+ul.blist").text.split("\n").reject(&:empty?)
+    vegan_veggies = recipe_container.css("h3#vvegetarian+ul.blist").text.split("\n").reject(&:empty?)
+    vegan_side_salad = recipe_container.css("h3#vsidesalad+ul.blist").text.split("\n").reject(&:empty?)
+    vegan_side_vege = recipe_container.css("h3#vsideveg+ul.blist").text.split("\n").reject(&:empty?)
+    vegan_dessert = recipe_container.css("h3#vdessert+ul.blist").text.split("\n").reject(&:empty?)
     binding.pry
+
 
   end
 
