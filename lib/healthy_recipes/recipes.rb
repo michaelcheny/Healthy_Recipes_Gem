@@ -5,13 +5,11 @@ class Recipes
 
   @@all = []
 
-  attr_reader :name, :calories_per_serving, :grams_per_serving, :url
+  attr_reader :name, :url
 
-  def initialize(name, calories_per_serving, grams_per_serving, url)
+  def initialize(name, url)
 
     @name = name
-    @calories_per_serving = calories_per_serving
-    @grams_per_serving = grams_per_serving
     @url = url
     @@all << self
 
