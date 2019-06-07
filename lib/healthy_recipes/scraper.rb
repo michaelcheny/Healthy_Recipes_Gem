@@ -52,13 +52,17 @@ class RecipeScraper
     recipe_container = parsed_url.css("div.slot-6-7-8")
     recipe_container.css("h3##{selector}+ul.blist li a").each do |dish|
 
+        ## clean up leading white space
       name = dish.text.gsub(/^[ \t]/, "")
       url = DOMAIN + "#{dish.attr("href")}"
       
         ## add food category and animalfriendly
 
+        ## capitalize category name
       category = "#{category.split.map(&:capitalize).join(" ")}"
-      animal_friendly = 
+
+      animal_friendly = category.include?("Vegan") ? "Yes" : "No"
+      # animal_friendly = 
 
       Recipes.new(name, url, category, animal_friendly)
     
