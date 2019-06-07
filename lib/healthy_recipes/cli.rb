@@ -4,7 +4,7 @@ class CLI
   def call
     self.greeting
     # RecipeScraper.scrape_recipe_name_and_url_non_vegan
-    RecipeScraper.seperate_categories("breakfast")
+    RecipeScraper.seperate_categories("vegan veggies")
   end
 
   def greeting

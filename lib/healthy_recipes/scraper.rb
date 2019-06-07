@@ -1,10 +1,7 @@
-require 'nokogiri'
-
 class RecipeScraper
 
-  STATIC_URL = "http://www.whfoods.com/recipestoc.php"
-
-  @@category = []
+  DOMAIN = "http://www.whfoods.com/"
+  PATH_TO_RECIPE = "recipestoc.php"
 
   # def self.scrape_categories
   #   scrape_category("breakfast")
@@ -12,10 +9,7 @@ class RecipeScraper
 
   def self.seperate_categories(category)
     
-    # selector = "li a"
-
     case category
-
       ## carnivore
     when "breakfast"
       selector = "breakfast"
@@ -32,12 +26,11 @@ class RecipeScraper
     when "vegetarian"
       selector = "vegetarian"
     when "side salad"
-      selector = "side_salad"
+      selector = "sidesalad"
     when "side veggies"
       selector = "sideveg"
     when "dessert"
       selector = "dessert"
-
     ## herbivore
     when "vegan breakfast"
       selector = "vbreakfast"
@@ -48,29 +41,23 @@ class RecipeScraper
     when "vegan veggies"
       selector = "vvegetarian"
     when "vegan side salad"
-      selector = "vside_salad"
+      selector = "vsidesalad"
     when "vegan side veggies"
       selector = "vsideveg"
     when "vegan dessert"
       selector = "vdessert"
     end
 
-    # binding.pry
-
-    parsed_url = Nokogiri::HTML(open(STATIC_URL))
-    # recipe_container = parsed_url.css("div.slot-6-7-8")
-
-
+    parsed_url = Nokogiri::HTML(open(DOMAIN + PATH_TO_RECIPE))
     recipe_container = parsed_url.css("div.slot-6-7-8")
     recipe_container.css("h3##{selector}+ul.blist li a").each do |dish|
-      # binding.pry
+
       name = dish.text.gsub(/^[ \t]/, "")
-      url = "http://www.whfoods.com/#{dish.attr("href")}"
+      url = DOMAIN + "#{dish.attr("href")}"
       
         ## add food category and animalfriendly
 
-        #try to add food category
-      category = "#{selector}"
+      category = "#{category.split.map(&:capitalize).join(" ")}"
       animal_friendly = 
 
       Recipes.new(name, url, category, animal_friendly)
@@ -79,7 +66,9 @@ class RecipeScraper
     binding.pry
   end
 
+  # scrape level 2 for recipe and instructions
 
+  # scrape level 3 for macros
 
 
     # hello = recipe_container.css("ul.blist").text.split("\n")
@@ -94,7 +83,6 @@ class RecipeScraper
     # side_salad = recipe_container.css("h3#sidesalad+ul.blist").text.split("\n").reject(&:empty?)
     # side_vege = recipe_container.css("h3#sideveg+ul.blist").text.split("\n").reject(&:empty?)
     # dessert = recipe_container.css("h3#dessert+ul.blist").text.split("\n").reject(&:empty?)
-q
       ## Animal friendly dishes
     # vegan_breakfast = recipe_container.css("h3#vbreakfast+ul.blist").text.split("\n").reject(&:empty?)
     # vegan_salads = recipe_container.css("h3#vsalad+ul.blist").text.split("\n").reject(&:empty?)
@@ -105,8 +93,6 @@ q
     # vegan_dessert = recipe_container.css("h3#vdessert+ul.blist").text.split("\n").reject(&:empty?)
     # # binding.pry
 
-
-  # end
 
 
 
@@ -140,9 +126,7 @@ q
     binding.pry
   end
 
-  # scrape level 2 for recipe and instructions
-
-  # scrape level 3 for macros
+  
 
 end
 
