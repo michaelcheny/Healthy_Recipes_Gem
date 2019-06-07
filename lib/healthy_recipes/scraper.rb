@@ -10,36 +10,58 @@ class RecipeScraper
 
   def self.seperate_categories(category)
     parsed_url = Nokogiri::HTML(open(STATIC_URL))
-    recipe_container = parsed_url.css("div.slot-6-7-8")
+    # recipe_container = parsed_url.css("div.slot-6-7-8")
 
-    selector = ""
+    selector = "li a"
 
-    if category == "breakfast"
+    case category
+
+    when "breakfast"
       selector = "breakfast"
-    elsif category == "salad"
+    when "salad"
       selector = "salad"
-    elsif category == "soup"
+    when "soup"
       selector = "soup"
-    elsif category == "fish"
-      category_container = recipe_container.css("h3#soup+ul.blist")
-    elsif category == "poultry"
-      category_container = recipe_container.css("h3#poultry+ul.blist")
-    elsif category == "meat"
-      category_container = recipe_container.css("h3#meat+ul.blist")
-    elsif category == "vegetarian"
-      category_container = recipe_container.css("h3#vegetarian+ul.blist")
-    elsif category == "side salad"
-      category_container = recipe_container.css("h3#side_salad+ul.blist")
-    elsif category == "side veggies"
-      category_container = recipe_container.css("h3#sideveg+ul.blist")
-    elsif category == "dessert"
-      category_container = recipe_container.css("h3#dessert+ul.blist")
+    when "fish"
+      selector = "fish"
+    when "poultry"
+      selector = "poultry"
+    when "meat"
+      selector = "meat"
+    when "vegetarian"
+      selector = "vegetarian"
+    when "side salad"
+      selector = "side_salad"
+    when "side veggies"
+      selector = "sideveg"
+    when "dessert"
+      selector = "dessert"
     end
 
+    # binding.pry
+
+
+    recipe_container = parsed_url.css("div.slot-6-7-8")
+    recipe_container.css(selector).each do |dish|
+      name = dish.text.gsub(/^[ \t]/, "")
+      url = "http://www.whfoods.com/#{dish.attr("href")}"
+      
+        ## add food category and animalfriendly
+
+
+      binding.pry
+
+
+
+        # binding.pry
+        #try to add food category
+      category = recipe_container.css("h3").text if recipe_container.css("ul.blist~li a")
+      animal_friendly = 
+
+      Recipes.new(name, url, category, animal_friendly)
+    
+    end
     binding.pry
-
-
-
 
 
 
@@ -108,3 +130,5 @@ class RecipeScraper
   # scrape level 3 for macros
 
 end
+
+RecipeScraper.seperate_categories("breakfast")
