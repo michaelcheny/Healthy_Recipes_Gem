@@ -5,18 +5,22 @@ class Recipes
 
   @@all = []
 
-  attr_accessor :name, :url, :type, :animal_friendly
+  attr_accessor :name, :url, :type, :animal_friendly, :categories
 
-  def initialize(name = nil, url = nil, type = nil, animal_friendly = nil)
+  def initialize(name = nil, url = nil, category = nil, animal_friendly = nil)
     @name = name
     @url = url
-    @type = type
+    @category = category
     @animal_friendly = animal_friendly
     @@all << self
   end
 
   def self.all
     @@all
+  end
+
+  def categories
+    self.categories.name
   end
 
   # add recipe

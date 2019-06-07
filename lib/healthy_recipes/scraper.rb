@@ -18,7 +18,7 @@ class RecipeScraper
     fish = recipe_container.css("h3#fish+ul.blist").text.split("\n").reject(&:empty?)
     poultry = recipe_container.css("h3#poultry+ul.blist").text.split("\n").reject(&:empty?)
     meat = recipe_container.css("h3#meat+ul.blist").text.split("\n").reject(&:empty?)
-    vetetarian = recipe_container.css("h3#vegetarian+ul.blist").text.split("\n").reject(&:empty?)
+    vegetarian = recipe_container.css("h3#vegetarian+ul.blist").text.split("\n").reject(&:empty?)
     side_salad = recipe_container.css("h3#sidesalad+ul.blist").text.split("\n").reject(&:empty?)
     side_vege = recipe_container.css("h3#sideveg+ul.blist").text.split("\n").reject(&:empty?)
     dessert = recipe_container.css("h3#dessert+ul.blist").text.split("\n").reject(&:empty?)
@@ -47,9 +47,14 @@ class RecipeScraper
       
         ## add food category and animalfriendly
 
+
+
+
+
+
         # binding.pry
         #try to add food category
-      type = recipe_container.css("h3").text if recipe_container.css("ul.blist~li a")
+      category = recipe_container.css("h3").text if recipe_container.css("ul.blist~li a")
       animal_friendly = 
 
       Recipes.new(name, url, type, animal_friendly)
