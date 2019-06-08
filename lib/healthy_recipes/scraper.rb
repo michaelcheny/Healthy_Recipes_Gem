@@ -51,13 +51,14 @@ class RecipeScraper
         ## clean up leading white space
       name = dish.text.gsub(/^[ \t]/, "")
       url = DOMAIN + "#{dish.attr("href")}"
-      category = "#{category.split.map(&:capitalize).join(" ")}"
-      animal_friendly = category.include?("Vegan") ? "Yes" : "No"
-
+      type = "#{category.split.map(&:capitalize).join(" ")}"
+      categoryy = Category.find_or_create_by_name(category)
+      animal_friendly = type.include?("Vegan") ? "Yes" : "No"
+        ## shove Recipes.new(attrs) into recipes
       recipes << {
         name: name,
         ingredient_url: url,
-        category: category,
+        category: categoryy,
         animal_friendly: animal_friendly
       }
 

@@ -36,7 +36,15 @@ class Category
   def recipes
     self.recipes.map(&:recipe).uniq
   end
-  
+
+  def self.find_by_name(name)
+    self.all.find{|category| category.name == name}
+  end
+
+  def self.find_or_create_by_name(name)
+    self.find_by_name(name) || self.create(name)
+  end
+
 end
 
 ## make a self.find_by_name class that takes in arg
