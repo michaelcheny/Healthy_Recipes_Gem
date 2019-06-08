@@ -11,9 +11,9 @@ class Recipes
     @url = url
     @category = category
     @animal_friendly = animal_friendly
-    @recipe = []
-    @ingredients = []
-    @macros = []
+    @directions = nil
+    @ingredients = nil
+    @macros = nil
     self.class.all << self
   end
 
