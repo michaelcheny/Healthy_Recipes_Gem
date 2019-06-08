@@ -1,4 +1,4 @@
-
+require 'pry'
 class Recipes
 
   
@@ -8,14 +8,34 @@ class Recipes
   attr_accessor :name, :url, :type, :animal_friendly, :categories, :recipes
 
 
-    ## will need to initialize recipes with more attrs
-  def initialize(name = nil, url = nil, category = nil, animal_friendly = nil)
-    @name = name
-    @url = url
-    @category = category
-    @animal_friendly = animal_friendly
-    @recipe = []
+
+  def initialize(recipe_hash)
+    recipe_hash.each {|k, v| self.send(("#{k}="), v)}
+    @@all << self
   end
+
+  def self.create_from_collection(recipes)
+  recipes.each do |recipe|
+    binding.pry
+    # recipe = Recipe.new({
+      
+    # })
+
+    end
+  end
+
+
+
+
+
+    ## will need to initialize recipes with more attrs
+  # def initialize(name = nil, url = nil, category = nil, animal_friendly = nil)
+  #   @name = name
+  #   @url = url
+  #   @category = category
+  #   @animal_friendly = animal_friendly
+  #   @recipe = []
+  # end
 
   def self.all
     @@all
@@ -39,7 +59,7 @@ class Recipes
   end
 
   def self.create(name)
-    
+
   end
 
 

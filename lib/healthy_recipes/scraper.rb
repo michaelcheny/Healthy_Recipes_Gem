@@ -47,6 +47,8 @@ class RecipeScraper
       selector = "vdessert"
     end
 
+    recipes = []
+
     parsed_url = Nokogiri::HTML(open(DOMAIN + PATH_TO_RECIPE))
     recipe_container = parsed_url.css("div.slot-6-7-8")
     recipe_container.css("h3##{selector}+ul.blist li a").each do |dish|  
@@ -62,11 +64,40 @@ class RecipeScraper
 
       animal_friendly = category.include?("Vegan") ? "Yes" : "No"
 
-      Recipes.new(name, url, category, animal_friendly)
+      recipes << {
+        name: name,
+        ingredient_url: url,
+        category: category,
+        animal_friendly: animal_friendly
+      }
+
+
+      # binding.pry
+      # Recipes.new(name, url, category, animal_friendly)
     
     end
     # binding.pry
+    return recipes
   end
+
+  # puts self.scrape_recipe_by_categories(DOMAIN + PATH_TO_RECIPE).inspect
+
+  def scrape_ingredients_and_directions
+
+
+
+  end
+
+  def scrape_nutrients_page 
+
+
+  end
+
+
+
+
+
+
 
   # scrape level 2 for recipe and instructions
 
@@ -133,3 +164,5 @@ class RecipeScraper
 end
 
 # RecipeScraper.seperate_categories("breakfast")
+
+# puts RecipeScraper.scrape_recipe_by_categories()

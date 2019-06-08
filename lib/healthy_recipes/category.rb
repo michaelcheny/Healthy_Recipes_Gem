@@ -1,12 +1,12 @@
 class Category
 
-  @@all
+  @@all = []
 
-  attr_accessor :name, :categories
+  attr_accessor :name, :categories, :recipes
 
   def initialize(name)
     @name = name
-    @categories = []
+    @recipes = []
   end
 
   def save
@@ -15,6 +15,10 @@ class Category
 
   def self.all
     @@all
+  end
+
+  def self.destroy_all
+    @@all.clear
   end
 
   def add_recipe(recipe)

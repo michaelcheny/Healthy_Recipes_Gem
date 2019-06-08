@@ -14,7 +14,7 @@ class CLI
     user_input = main_menu
     unless user_input == "exit" || user_input.include?("n")
       self.list_categories
-      self.choose_categories
+      # self.choose_categories
     end
   end
 
