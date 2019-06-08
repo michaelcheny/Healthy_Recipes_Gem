@@ -15,6 +15,7 @@ class CLI
     # self.art
     
     RecipeScraper.scrape_all_categories
+    # RecipeScraper.scrape_ingredients_and_directions(recipe)
     loop do
       user_input = main_menu
       if user_input == "exit" || user_input.include?("n")
@@ -72,14 +73,14 @@ class CLI
     index = gets.strip.to_i - 1
     recipe = Recipes.all[index]
     RecipeScraper.scrape_ingredients_and_directions(recipe)
-    self.display_recipe_info(recipe)
+    # self.display_recipe_info(recipe)
   end
 
   def display_recipe_info(recipe)
     puts recipe.name
     puts recipe.url
-    puts recipe.directions
-    puts recipe.ingredients
+    # puts recipe.directions
+    # puts recipe.ingredients
   end
 
   def reject_input

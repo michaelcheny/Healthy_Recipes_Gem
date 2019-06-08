@@ -48,12 +48,15 @@ class RecipeScraper
     recipe_container = parsed_url.css("div.slot-6-7-8")
     recipe_container.css("h3##{selector}+ul.blist li a").each do |dish|  
 
+      
         ## clean up leading white space
+      
       name = dish.text.gsub(/^[ \t]/, "")
       url = DOMAIN + "#{dish.attr("href")}"
       type = "#{category.split.map(&:capitalize).join(" ")}"
       categoryy = Category.find_or_create_by_name(category)
       animal_friendly = type.include?("Vegan") ? "Yes" : "No"
+      
         ## shove Recipes.new(attrs) into recipes
       # recipes << {
       #   name: name,
@@ -96,9 +99,13 @@ class RecipeScraper
 
   def self.scrape_ingredients_and_directions(recipe)
     recipe_url = recipe.url
-    parsed_html = Nokogiri::HTML(open(recipe_url))
-
+    level_one_container = Nokogiri::HTML(open(recipe_url))
+    # binding.pry
+    level_one_container.css("div.slot-6-7-8").each do |steps|
+      recipe.ingredients = steps.css("tr td ul").text
+      
     binding.pry
+    end
 
   end
 
