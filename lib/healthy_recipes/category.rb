@@ -21,16 +21,16 @@ class Category
     @@all.clear
   end
 
-  def add_recipe(recipe)
+  def self.add_recipe(recipe)
     # binding.pry
     self.recipes << recipe unless self.recipes.include?(recipe)
-    recipe.category = self unless recipe.category == self
+    recipe.category = self unless recipe.category #== self
     # recipe.categories = self
     # binding.pry
   end
 
-  def self.create(category)
-    self.new(category).tap(&:save)
+  def self.create(name)
+    self.new(name).tap(&:save)
   end
 
   def recipes

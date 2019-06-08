@@ -1,30 +1,8 @@
 class Recipes
 
-  
-
   @@all = []
 
-  attr_accessor :name, :url, :type, :animal_friendly, :categories, :recipes, :ingredients, :macros
-
-
-
-  # def initialize(recipe_hash)
-  #   recipe_hash.each {|k, v| self.send(("#{k}="), v)}
-  #   @@all << self
-  # end
-
-  # def self.create_from_collection(recipes)
-  # recipes.each do |recipe|
-  #   binding.pry
-  #   recipe = Recipe.new({
-      
-  #   })
-
-  #   end 
-  # end
-
-
-
+  attr_accessor :name, :url, :type, :animal_friendly, :category, :recipes, :ingredients, :macros
 
 
     # will need to initialize recipes with more attrs
@@ -36,11 +14,16 @@ class Recipes
     @recipe = []
     @ingredients = []
     @macros = []
-    @@all << self
+    self.class.all << self
   end
 
   def self.all
     @@all
+  end
+
+  
+  def self.destroy_all
+    @@all.clear
   end
 
   # def categories
@@ -55,11 +38,6 @@ class Recipes
   # def save
   #   @@all << self
   # end
-  
-  def self.destroy_all
-    @@all.clear
-  end
-
   # def self.create(name)
 
   # end

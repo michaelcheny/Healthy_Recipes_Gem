@@ -42,7 +42,7 @@ class RecipeScraper
       selector = "vdessert"
     end
 
-    recipes = []
+    @@recipes = []
 
     parsed_url = Nokogiri::HTML(open(DOMAIN + PATH_TO_RECIPE))
     recipe_container = parsed_url.css("div.slot-6-7-8")
@@ -55,19 +55,20 @@ class RecipeScraper
       categoryy = Category.find_or_create_by_name(category)
       animal_friendly = type.include?("Vegan") ? "Yes" : "No"
         ## shove Recipes.new(attrs) into recipes
-      recipes << {
-        name: name,
-        ingredient_url: url,
-        category: categoryy,
-        animal_friendly: animal_friendly
-      }
+      # recipes << {
+      #   name: name,
+      #   ingredient_url: url,
+      #   category: categoryy,
+      #   animal_friendly: animal_friendly
+      # }
+      @@recipes = Recipes.new(name, url, categoryy, animal_friendly)
 
       # binding.pry
       # Recipes.new(name, url, category, animal_friendly)
     
     end
     binding.pry
-    return recipes
+    return @@recipes
   end
 
       ## scrape all the categories to start off
