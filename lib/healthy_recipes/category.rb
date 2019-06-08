@@ -2,7 +2,7 @@ class Category
 
   @@all = []
 
-  attr_accessor :name, :categories, :recipes
+  attr_accessor :name, :recipes
 
   def initialize(name)
     @name = name
@@ -23,7 +23,7 @@ class Category
 
   def add_recipe(recipe)
     # binding.pry
-    @recipes << recipe unless self.recipes.include?(recipe)
+    self.recipes << recipe unless self.recipes.include?(recipe)
     recipe.category = self unless recipe.category == self
     # recipe.categories = self
     # binding.pry

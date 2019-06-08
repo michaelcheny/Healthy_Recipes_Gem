@@ -4,7 +4,7 @@ class Recipes
 
   @@all = []
 
-  attr_accessor :name, :url, :type, :animal_friendly, :categories, :recipes, :ingredients
+  attr_accessor :name, :url, :type, :animal_friendly, :categories, :recipes, :ingredients, :macros
 
 
 
@@ -20,7 +20,7 @@ class Recipes
       
   #   })
 
-  #   end
+  #   end 
   # end
 
 

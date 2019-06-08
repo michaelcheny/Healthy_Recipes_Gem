@@ -3,12 +3,7 @@ class RecipeScraper
   DOMAIN = "http://www.whfoods.com/"
   PATH_TO_RECIPE = "recipestoc.php"
 
-  # def self.scrape_categories
-  #   scrape_category("breakfast")
-  # end
-
   def self.scrape_recipe_by_categories(category)
-    
     case category
     when "breakfast"
       selector = "breakfast"
@@ -56,12 +51,7 @@ class RecipeScraper
         ## clean up leading white space
       name = dish.text.gsub(/^[ \t]/, "")
       url = DOMAIN + "#{dish.attr("href")}"
-      
-        ## add food category and animalfriendly
-
-        ## capitalize category name
       category = "#{category.split.map(&:capitalize).join(" ")}"
-
       animal_friendly = category.include?("Vegan") ? "Yes" : "No"
 
       recipes << {
@@ -70,7 +60,6 @@ class RecipeScraper
         category: category,
         animal_friendly: animal_friendly
       }
-
 
       # binding.pry
       # Recipes.new(name, url, category, animal_friendly)
@@ -101,10 +90,10 @@ class RecipeScraper
     scrape_recipe_by_categories("vegan dessert")
   end
 
-  # puts self.scrape_recipe_by_categories(DOMAIN + PATH_TO_RECIPE).inspect
 
-  def scrape_ingredients_and_directions
-
+  def scrape_ingredients_and_directions(recipe)
+    recipe_url = recipes.url
+    parsed_html = Nokogiri::HTML(open(recipe_url))
 
 
   end

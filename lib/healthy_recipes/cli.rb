@@ -4,12 +4,16 @@ class CLI
   ## seperator   "---------------------------------------------------------------"
   ## squiglyline "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 
+  # def initialize
+  #   start = RecipeScraper.new
+  #   start.scrape_all_categories
+  # end
+
   def call
     self.greeting
     sleep(1)
     # self.art
-    # RecipeScraper.scrape_recipe_name_and_url_non_vegan
-    start = RecipeScraper.scrape_all_categories
+    RecipeScraper.scrape_all_categories
     # user_input = main_menu
     # unless user_input == "exit" || user_input.include?("n")
       self.list_categories
@@ -17,6 +21,10 @@ class CLI
     # end
   end
 
+
+  def start_scraping
+
+  end
 #   def art
 #  puts "   __                _ 
 #     / _|              | |
@@ -51,7 +59,17 @@ class CLI
   def list_categories
     puts "The categories you can choose from:"
     puts ""
-    puts Category.all #.each_with_index{|c, i| puts "#{i+1}. #{c.name}"}
+    puts Recipes.all #.each_with_index{|c, i| puts "#{i+1}. #{c.name}"}
+  end
+  
+  def choose_categories
+    puts "choose"
+    
+
+  end
+
+  def reject_input
+    puts "Invalid input, please try again."
   end
 
 end
