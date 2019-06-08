@@ -76,8 +76,29 @@ class RecipeScraper
       # Recipes.new(name, url, category, animal_friendly)
     
     end
-    # binding.pry
+    binding.pry
     return recipes
+  end
+
+      ## scrape all the categories to start off
+  def self.scrape_all_categories
+    scrape_recipe_by_categories("breakfast")
+    scrape_recipe_by_categories("salad")
+    scrape_recipe_by_categories("soup")
+    scrape_recipe_by_categories("fish")
+    scrape_recipe_by_categories("poultry")
+    scrape_recipe_by_categories("meat")
+    scrape_recipe_by_categories("vegetarian")
+    scrape_recipe_by_categories("side salad")
+    scrape_recipe_by_categories("side veggies")
+    scrape_recipe_by_categories("dessert")
+    scrape_recipe_by_categories("vegan breakfast")
+    scrape_recipe_by_categories("vegan salad")
+    scrape_recipe_by_categories("vegan soup")
+    scrape_recipe_by_categories("vegan veggies")
+    scrape_recipe_by_categories("vegan side salad")
+    scrape_recipe_by_categories("vegan side veggies")
+    scrape_recipe_by_categories("vegan dessert")
   end
 
   # puts self.scrape_recipe_by_categories(DOMAIN + PATH_TO_RECIPE).inspect

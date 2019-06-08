@@ -6,16 +6,15 @@ class CLI
 
   def call
     self.greeting
-    sleep(1.5)
+    sleep(1)
     # self.art
     # RecipeScraper.scrape_recipe_name_and_url_non_vegan
-    RecipeScraper.scrape_recipe_by_categories("vegan breakfast")
-
-    user_input = main_menu
-    unless user_input == "exit" || user_input.include?("n")
+    start = RecipeScraper.scrape_all_categories
+    # user_input = main_menu
+    # unless user_input == "exit" || user_input.include?("n")
       self.list_categories
       # self.choose_categories
-    end
+    # end
   end
 
 #   def art
@@ -52,7 +51,7 @@ class CLI
   def list_categories
     puts "The categories you can choose from:"
     puts ""
-    Category.all.each_with_index{|c, i| puts "#{i+1}. #{c.name}"}
+    puts Category.all #.each_with_index{|c, i| puts "#{i+1}. #{c.name}"}
   end
 
 end

@@ -22,16 +22,21 @@ class Category
   end
 
   def add_recipe(recipe)
-    binding.pry
-    @categories << recipe
-    recipe.categories = self
+    # binding.pry
+    @recipes << recipe unless self.recipes.include?(recipe)
+    recipe.category = self unless recipe.category == self
+    # recipe.categories = self
     # binding.pry
   end
 
-  def categories
-    @categories
+  def self.create(category)
+    self.new(category).tap(&:save)
   end
 
+  def recipes
+    self.recipes.map(&:recipe).uniq
+  end
+  
 end
 
 ## make a self.find_by_name class that takes in arg
