@@ -58,11 +58,11 @@ class CLI
   end
   
   def choose_categories
-    sleep(1)
+    # sleep(1)
     puts "Please choose a number, or "
     puts ""
     # binding.pry
-    user_input = gets.strip
+    user_input = gets.strip.to_s.downcase ## has to be string cause my css noko selector is string
 
     ### Once user gives input, use that input as argument to scrape which category.
 

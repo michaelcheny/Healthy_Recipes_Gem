@@ -2,17 +2,16 @@ class RecipeScraper
 
   DOMAIN = "http://www.whfoods.com/"
   PATH_TO_RECIPE_PAGE = "recipestoc.php"
-  RECIPES = ["breakfast", "salad", "soup", "fish", "poultry", ]
 
   def self.scrape_recipe_by_categories(category)
     case category
-    when 1 || "breakfast"
+    when "1" || "breakfast"
       selector = "breakfast"
-    when 2 || "salad"
+    when "2" || "salad"
       selector = "salad"
-    when 3 || "soup"
+    when "3" || "soup"
       selector = "soup"
-    when 4 || "fish"
+    when "4" || "fish"
       selector = "fish"
     when 5 || "poultry"
       selector = "poultry"
@@ -44,7 +43,7 @@ class RecipeScraper
     end
 
     # @@recipes = []
-    puts "Scraping recipes from #{category.split.map(&:capitalize).join(" ")} category."
+    # puts "Scraping recipes from #{category.split.map(&:capitalize).join(" ")} category."
     # binding.pry
     parsed_url = Nokogiri::HTML(open(DOMAIN + PATH_TO_RECIPE_PAGE))
     # binding.pry
