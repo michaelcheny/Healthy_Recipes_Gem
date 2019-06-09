@@ -5,46 +5,46 @@ class RecipeScraper
 
   def self.scrape_recipe_by_categories(category)
     case category
-    when "1" || "breakfast"
+    when 1 #|| "breakfast"
       selector = "breakfast"
-    when "2" || "salad entrees"
+    when 2 #|| "salad entrees"
       selector = "salad"
-    when "3" || "soups"
+    when 3 #|| "soups"
       selector = "soup"
-    when "4" || "fish"
+    when 4 #|| "fish"
       selector = "fish" ###finish changing these names
-    when "5" || "poultry"
+    when 5 #|| "chicken and turkey"
       selector = "poultry"
-    when "6" || "meat"
+    when 6 #|| "lean meat"
       selector = "meat"
-    when "7" || "vegetarian"
+    when 7 #|| "vegetarian entrees"
       selector = "vegetarian"
-    when "8" || "side salad"
+    when 8 #|| "side salad/dressings"
       selector = "sidesalad"
-    when "9" || "side veggies"
+    when 9 #|| "side vegetables"
       selector = "sideveg"
-    when "10" || "dessert"
+    when 10 #|| "desserts"
       selector = "dessert"
 
-    when "11" || "vegan breakfast"
+    when 11 #|| "vegan breakfast"
       selector = "vbreakfast"
-    when "12" || "vegan salad"
+    when 12 #|| "vegan salad entrees"
       selector = "vsalad"
-    when "13" || "vegan soup"
+    when 13 #|| "vegan soups"
       selector = "vsoup"
-    when "14" || "vegan veggies"
+    when 14 #|| "vegan vegetarian entrees"
       selector = "vvegetarian"
-    when "15" || "vegan side salad"
+    when 15 #|| "vegan side salad/dressings"
       selector = "vsidesalad"
-    when "16" || "vegan side veggies"
+    when 16 #|| "vegan side vegetables"
       selector = "vsideveg"
-    when "17" || "vegan dessert"
+    when 17 #|| "vegan desserts"
       selector = "vdessert"
     end
 
     # @@recipes = []
     # puts "Scraping recipes from #{category.split.map(&:capitalize).join(" ")} category."
-    # binding.pry
+    binding.pry
     parsed_url = Nokogiri::HTML(open(DOMAIN + PATH_TO_RECIPE_PAGE))
     # binding.pry
     recipe_container = parsed_url.css("div.slot-6-7-8")
@@ -55,7 +55,7 @@ class RecipeScraper
       
       name = dish.text.gsub(/^[ \t]/, "")
       url = DOMAIN + "#{dish.attr("href")}"
-      type = "#{category.split.map(&:capitalize).join(" ")}"
+      # type = "#{category.split.map(&:capitalize).join(" ")}"
       # categoryy = Category.find_or_create_by_name(category)
       animal_friendly = type.include?("Vegan") ? "Yes" : "No"
 
@@ -80,38 +80,16 @@ class RecipeScraper
   def self.scrape_all_categories
     parsed_url = Nokogiri::HTML(open(DOMAIN + PATH_TO_RECIPE_PAGE))
     general_container = parsed_url.css("div.slot-6-7-8")
-    @categories = []
     ## non vegan
-    general_container.css("h2#recipes~h3")[0..9].each{|cat| @categories << cat.text}
+    categories = general_container.css("h2#recipes~h3")[0..9].map(&:text)
     ## vegan
-    general_container.css("h2#recipes~h3")[10..16].each { |container| @categories << "Vegan " + container.text}
-    return @categories
-    # binding.pry
+    general_container.css("h2#recipes~h3")[10..16].each { |container| categories << "Vegan " + container.text}
+    return categories
   end
 
 
 
 
-
-
-    # scrape_recipe_by_categories("breakfast")
-    # scrape_recipe_by_categories("salad")
-    # scrape_recipe_by_categories("soup")
-    # scrape_recipe_by_categories("fish")
-    # scrape_recipe_by_categories("poultry")
-    # scrape_recipe_by_categories("meat")
-    # scrape_recipe_by_categories("vegetarian")
-    # scrape_recipe_by_categories("side salad")
-    # scrape_recipe_by_categories("side veggies")
-    # scrape_recipe_by_categories("dessert")
-    # scrape_recipe_by_categories("vegan breakfast")
-    # scrape_recipe_by_categories("vegan salad")
-    # scrape_recipe_by_categories("vegan soup")
-    # scrape_recipe_by_categories("vegan veggies")
-    # scrape_recipe_by_categories("vegan side salad")
-    # scrape_recipe_by_categories("vegan side veggies")
-    # scrape_recipe_by_categories("vegan dessert")
-  
 
 
   def self.scrape_ingredients_and_directions(recipe)
@@ -161,6 +139,26 @@ class RecipeScraper
 
 
 
+
+
+    # scrape_recipe_by_categories("breakfast")
+    # scrape_recipe_by_categories("salad")
+    # scrape_recipe_by_categories("soup")
+    # scrape_recipe_by_categories("fish")
+    # scrape_recipe_by_categories("poultry")
+    # scrape_recipe_by_categories("meat")
+    # scrape_recipe_by_categories("vegetarian")
+    # scrape_recipe_by_categories("side salad")
+    # scrape_recipe_by_categories("side veggies")
+    # scrape_recipe_by_categories("dessert")
+    # scrape_recipe_by_categories("vegan breakfast")
+    # scrape_recipe_by_categories("vegan salad")
+    # scrape_recipe_by_categories("vegan soup")
+    # scrape_recipe_by_categories("vegan veggies")
+    # scrape_recipe_by_categories("vegan side salad")
+    # scrape_recipe_by_categories("vegan side veggies")
+    # scrape_recipe_by_categories("vegan dessert")
+  
 
 
 

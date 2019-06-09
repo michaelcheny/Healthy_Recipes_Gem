@@ -40,18 +40,19 @@ class CLI
     puts ""
   end
 
-  def prompt_user
-    puts ""
-    puts "Choose a category of recipes"
-    puts "enter anything"
-    input = gets.strip.downcase
-    return input
-  end
+  # def prompt_user
+  #   puts ""
+  #   puts "Choose a category of recipes"
+  #   puts "enter anything"
+  #   input = gets.strip.to_i - 1
+  #   return input
+  # end
 
   def list_categories
     puts "The categories you can choose from:"
     puts ""
-    RecipeScraper.scrape_all_categories.each.with_index(1){|category, index| puts "#{index}. #{category}"}
+    # binding.pry
+    RecipeScraper.scrape_all_categories.each_with_index{|category, index| puts "#{index+1}. #{category}"}
     puts ""
     # binding.pry
     # puts HealthyRecipes::Category.all.each_with_index{|c, i| puts "#{i+1}. #{c.name.split.map(&:capitalize).join(" ")}"}
@@ -62,7 +63,7 @@ class CLI
     puts "Please choose a number, or "
     puts ""
     # binding.pry
-    category_input = gets.strip.to_s.downcase ## has to be string cause my css noko selector is string
+    category_input = gets.strip.to_i - 1 ## has to be string cause my css noko selector is string
 
     ### Once user gives input, use that input as argument to scrape which category.
 
