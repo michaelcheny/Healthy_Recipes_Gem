@@ -62,13 +62,13 @@ class CLI
     puts "Please choose a number, or "
     puts ""
     # binding.pry
-    user_input = gets.strip.to_s.downcase ## has to be string cause my css noko selector is string
+    category_input = gets.strip.to_s.downcase ## has to be string cause my css noko selector is string
 
     ### Once user gives input, use that input as argument to scrape which category.
 
     # recipe = Recipes.category[index]
     # binding.pry
-    RecipeScraper.scrape_recipe_by_categories(user_input)
+    RecipeScraper.scrape_recipe_by_categories(category_input)
     # RecipeScraper.scrape_ingredients_and_directions(recipe)
     # self.display_recipe_info(recipe)
   end

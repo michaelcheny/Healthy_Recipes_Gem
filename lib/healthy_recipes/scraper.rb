@@ -48,7 +48,7 @@ class RecipeScraper
     parsed_url = Nokogiri::HTML(open(DOMAIN + PATH_TO_RECIPE_PAGE))
     # binding.pry
     recipe_container = parsed_url.css("div.slot-6-7-8")
-    binding.pry
+    # binding.pry
     recipe_container.css("h3##{selector}+ul.blist li a").each do |dish|  
       binding.pry
         ## clean up leading white space
