@@ -40,13 +40,6 @@ class CLI
     puts ""
   end
 
-  # def prompt_user
-  #   puts ""
-  #   puts "Choose a category of recipes"
-  #   puts "enter anything"
-  #   input = gets.strip.to_i - 1
-  #   return input
-  # end
 
   def list_categories
     puts "The categories you can choose from:"
@@ -60,13 +53,10 @@ class CLI
   
   def choose_categories
     # sleep(1)
-    puts "Please choose a number, or "
+    puts "Please choose a category number:"
     puts ""
-    # binding.pry
-    category_input = gets.strip.to_i - 1 ## has to be string cause my css noko selector is string
-
+    category_input = gets.strip.to_i - 1 
     ### Once user gives input, use that input as argument to scrape which category.
-
     # recipe = Recipes.category[index]
     # binding.pry
     RecipeScraper.scrape_recipe_by_categories(category_input)
