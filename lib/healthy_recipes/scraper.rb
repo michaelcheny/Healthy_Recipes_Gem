@@ -1,4 +1,4 @@
-class HealthyRecipes::RecipeScraper
+class RecipeScraper
 
   DOMAIN = "http://www.whfoods.com/"
   PATH_TO_RECIPE_PAGE = "recipestoc.php"
@@ -118,7 +118,7 @@ class HealthyRecipes::RecipeScraper
       recipe.ingredients = steps.css("tr td ul.llist").text
       recipe.directions = steps.css("p~ol").text
       recipe.in_depth_url = steps.css("p b:contains('In-Depth Nutritional Profile')+a").attr('href').text unless steps.css("p b:contains('In-Depth Nutritional Profile')+a").attr('href').nil?
-    # binding.pry
+    binding.pry
     end
   end
 

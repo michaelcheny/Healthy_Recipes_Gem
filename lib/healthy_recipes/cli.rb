@@ -1,4 +1,4 @@
-class HealthyRecipes::CLI
+class CLI
 
   def call
     ## greet user
@@ -6,10 +6,10 @@ class HealthyRecipes::CLI
     ## list out the categories
     ## let user select a category
     ## use that user's selection as an argument to scrape that category
-    HealthyRecipes::RecipeScraper.scrape_all_categories
+    # HealthyRecipes::RecipeScraper.scrape_all_categories
 
     self.list_categories
-    self.choose_categories
+    # self.choose_categories
     # RecipeScraper.scrape_ingredients_and_directions(recipe)
     # loop do
     #   user_input = main_menu
@@ -51,15 +51,16 @@ class HealthyRecipes::CLI
   def list_categories
     puts "The categories you can choose from:"
     puts ""
-    # sleep(1)
     # binding.pry
-    puts HealthyRecipes::Category.all.each_with_index{|c, i| puts "#{i+1}. #{c.name.split.map(&:capitalize).join(" ")}"}
+    # puts HealthyRecipes::Category.all.each_with_index{|c, i| puts "#{i+1}. #{c.name.split.map(&:capitalize).join(" ")}"}
   end
   
   def choose_categories
     puts "choose"
+    # binding.pry
     index = gets.strip.to_i - 1
     recipe = HealthyRecipes::Recipes.category[index]
+    # binding.pry
     HealthyRecipes::RecipeScraper.scrape_ingredients_and_directions(recipe)
     # self.display_recipe_info(recipe)
   end
