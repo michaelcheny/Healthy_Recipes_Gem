@@ -2,20 +2,22 @@ class CLI
 
   def call
     self.greeting
-    sleep(1)
+    # sleep(1)
     # self.art
     
     RecipeScraper.scrape_all_categories
+
+    self.list_categories
     # RecipeScraper.scrape_ingredients_and_directions(recipe)
-    loop do
-      user_input = main_menu
-      if user_input == "exit" || user_input.include?("n")
-        return
-      else
-        self.list_categories
-        self.choose_categories
-      end
-    end
+    # loop do
+    #   user_input = main_menu
+    #   if user_input == "exit" || user_input.include?("n")
+    #     return
+    #   else
+    #     self.list_categories
+    #     self.choose_categories
+    #   end
+    # end
   end
 
 
@@ -27,12 +29,11 @@ class CLI
   def greeting
     puts ""
     puts "---------------------------------------------------------------"
-    puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    
     puts "Welcome!"
     puts "This is a gem to let user's find healthy recipes!"
     puts "why eating healthy is beneficial"
     puts "add some other eat health facts"
-    puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
     puts "---------------------------------------------------------------"
     puts ""
   end
@@ -48,7 +49,8 @@ class CLI
   def list_categories
     puts "The categories you can choose from:"
     puts ""
-    puts Recipes.all.each_with_index{|c, i| puts "#{i+1}. #{c.name}"}
+    sleep(1)
+    puts Category.all.each_with_index{|c, i| puts "#{i+1}. #{c.name}"}
   end
   
   def choose_categories

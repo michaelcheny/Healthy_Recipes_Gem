@@ -43,12 +43,12 @@ class RecipeScraper
     end
 
     # @@recipes = []
+    puts "Scraping recipes from #{category} category."
 
     parsed_url = Nokogiri::HTML(open(DOMAIN + PATH_TO_RECIPE))
     recipe_container = parsed_url.css("div.slot-6-7-8")
     recipe_container.css("h3##{selector}+ul.blist li a").each do |dish|  
 
-      
         ## clean up leading white space
       
       name = dish.text.gsub(/^[ \t]/, "")
@@ -56,6 +56,8 @@ class RecipeScraper
       type = "#{category.split.map(&:capitalize).join(" ")}"
       categoryy = Category.find_or_create_by_name(category)
       animal_friendly = type.include?("Vegan") ? "Yes" : "No"
+
+      # puts "Adding #{name} to recipes. Hang tight."
       
         ## shove Recipes.new(attrs) into recipes
       # recipes << {
@@ -66,10 +68,7 @@ class RecipeScraper
       # }
       # @@recipes = Recipes.new(name, url, categoryy, animal_friendly)
       Recipes.new(name, url, categoryy, animal_friendly)
-
-      # binding.pry
       # Recipes.new(name, url, category, animal_friendly)
-    
     end
     # binding.pry
     # return @@recipes
@@ -100,14 +99,12 @@ class RecipeScraper
   def self.scrape_ingredients_and_directions(recipe)
     recipe_url = recipe.url
     level_one_container = Nokogiri::HTML(open(recipe_url))
-    # binding.pry
     level_one_container.css("div.slot-6-7-8").each do |steps|
       recipe.ingredients = steps.css("tr td ul.llist").text
       recipe.directions = steps.css("p~ol").text
       recipe.in_depth_url = steps.css("p b:contains('In-Depth Nutritional Profile')+a").attr('href').text unless steps.css("p b:contains('In-Depth Nutritional Profile')+a").attr('href').nil?
     # binding.pry
     end
-
   end
 
   def scrape_nutrients_page 
@@ -163,7 +160,3 @@ class RecipeScraper
   
 
 end
-
-# RecipeScraper.seperate_categories("breakfast")
-
-# puts RecipeScraper.scrape_recipe_by_categories()
