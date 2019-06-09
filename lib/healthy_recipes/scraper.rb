@@ -102,8 +102,9 @@ class RecipeScraper
     level_one_container = Nokogiri::HTML(open(recipe_url))
     # binding.pry
     level_one_container.css("div.slot-6-7-8").each do |steps|
-      recipe.ingredients = steps.css("tr td ul").text
-      
+      recipe.ingredients = steps.css("tr td ul.llist").text
+      recipe.directions = steps.css("p~ol").text
+      recipe.in_depth_url = steps.css("p b:contains('In-Depth Nutritional Profile')+a").attr('href').text unless steps.css("p b:contains('In-Depth Nutritional Profile')+a").attr('href').nil?
     binding.pry
     end
 

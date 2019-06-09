@@ -2,7 +2,7 @@ class Recipes
 
   @@all = []
 
-  attr_accessor :name, :url, :type, :animal_friendly, :category, :recipes, :ingredients, :macros
+  attr_accessor :name, :url, :type, :animal_friendly, :category, :ingredients, :directions, :in_depth_url, :macros
 
 
     # will need to initialize recipes with more attrs
@@ -13,6 +13,7 @@ class Recipes
     @animal_friendly = animal_friendly
     @directions = nil
     @ingredients = nil
+    @in_depth_url = nil
     @macros = nil
     self.class.all << self
   end
