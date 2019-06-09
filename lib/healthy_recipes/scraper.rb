@@ -77,18 +77,16 @@ class RecipeScraper
 
       ## scrape all the categories to start off
   def self.scrape_all_categories
-
     parsed_url = Nokogiri::HTML(open(DOMAIN + PATH_TO_RECIPE_PAGE))
     general_container = parsed_url.css("div.slot-6-7-8")
-
-    # categories = []
+    @categories = []
     ## non vegan
-    categories = general_container.css("h2#recipes~h3")[0..9].map{|cat| cat.text}
+    general_container.css("h2#recipes~h3")[0..9].each{|cat| @categories << cat.text}
     ## vegan
-    general_container.css("h2#recipes~h3")[10..16].each { |container| categories << "Vegan " + container.text}
-      binding.pry
-    
-  
+    general_container.css("h2#recipes~h3")[10..16].each { |container| @categories << "Vegan " + container.text}
+    return @categories
+    binding.pry
+  end
 
 
 
@@ -112,7 +110,7 @@ class RecipeScraper
     # scrape_recipe_by_categories("vegan side salad")
     # scrape_recipe_by_categories("vegan side veggies")
     # scrape_recipe_by_categories("vegan dessert")
-  end
+  
 
 
   def self.scrape_ingredients_and_directions(recipe)
