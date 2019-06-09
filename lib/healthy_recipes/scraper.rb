@@ -1,7 +1,7 @@
-class RecipeScraper
+class HealthyRecipes::RecipeScraper
 
   DOMAIN = "http://www.whfoods.com/"
-  PATH_TO_RECIPE = "recipestoc.php"
+  PATH_TO_RECIPE_PAGE = "recipestoc.php"
 
   def self.scrape_recipe_by_categories(category)
     case category
@@ -43,9 +43,9 @@ class RecipeScraper
     end
 
     # @@recipes = []
-    puts "Scraping recipes from #{category} category."
+    puts "Scraping recipes from #{category.split.map(&:capitalize).join(" ")} category."
 
-    parsed_url = Nokogiri::HTML(open(DOMAIN + PATH_TO_RECIPE))
+    parsed_url = Nokogiri::HTML(open(DOMAIN + PATH_TO_RECIPE_PAGE))
     recipe_container = parsed_url.css("div.slot-6-7-8")
     recipe_container.css("h3##{selector}+ul.blist li a").each do |dish|  
 
@@ -54,7 +54,7 @@ class RecipeScraper
       name = dish.text.gsub(/^[ \t]/, "")
       url = DOMAIN + "#{dish.attr("href")}"
       type = "#{category.split.map(&:capitalize).join(" ")}"
-      categoryy = Category.find_or_create_by_name(category)
+      # categoryy = Category.find_or_create_by_name(category)
       animal_friendly = type.include?("Vegan") ? "Yes" : "No"
 
       # puts "Adding #{name} to recipes. Hang tight."
@@ -67,7 +67,7 @@ class RecipeScraper
       #   animal_friendly: animal_friendly
       # }
       # @@recipes = Recipes.new(name, url, categoryy, animal_friendly)
-      Recipes.new(name, url, categoryy, animal_friendly)
+      Recipes.new(name, url, type, animal_friendly)
       # Recipes.new(name, url, category, animal_friendly)
     end
     # binding.pry
@@ -76,23 +76,38 @@ class RecipeScraper
 
       ## scrape all the categories to start off
   def self.scrape_all_categories
-    scrape_recipe_by_categories("breakfast")
-    scrape_recipe_by_categories("salad")
-    scrape_recipe_by_categories("soup")
-    scrape_recipe_by_categories("fish")
-    scrape_recipe_by_categories("poultry")
-    scrape_recipe_by_categories("meat")
-    scrape_recipe_by_categories("vegetarian")
-    scrape_recipe_by_categories("side salad")
-    scrape_recipe_by_categories("side veggies")
-    scrape_recipe_by_categories("dessert")
-    scrape_recipe_by_categories("vegan breakfast")
-    scrape_recipe_by_categories("vegan salad")
-    scrape_recipe_by_categories("vegan soup")
-    scrape_recipe_by_categories("vegan veggies")
-    scrape_recipe_by_categories("vegan side salad")
-    scrape_recipe_by_categories("vegan side veggies")
-    scrape_recipe_by_categories("vegan dessert")
+
+    parsed_url = Nokogiri::HTML(open(DOMAIN + PATH_TO_RECIPE_PAGE))
+    recipe_container = parsed_url.css("div.slot-6-7-8")
+
+
+
+
+    binding.pry
+
+
+
+
+
+
+
+    # scrape_recipe_by_categories("breakfast")
+    # scrape_recipe_by_categories("salad")
+    # scrape_recipe_by_categories("soup")
+    # scrape_recipe_by_categories("fish")
+    # scrape_recipe_by_categories("poultry")
+    # scrape_recipe_by_categories("meat")
+    # scrape_recipe_by_categories("vegetarian")
+    # scrape_recipe_by_categories("side salad")
+    # scrape_recipe_by_categories("side veggies")
+    # scrape_recipe_by_categories("dessert")
+    # scrape_recipe_by_categories("vegan breakfast")
+    # scrape_recipe_by_categories("vegan salad")
+    # scrape_recipe_by_categories("vegan soup")
+    # scrape_recipe_by_categories("vegan veggies")
+    # scrape_recipe_by_categories("vegan side salad")
+    # scrape_recipe_by_categories("vegan side veggies")
+    # scrape_recipe_by_categories("vegan dessert")
   end
 
 

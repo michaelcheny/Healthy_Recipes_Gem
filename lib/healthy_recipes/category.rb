@@ -1,4 +1,4 @@
-class Category
+class HealthyRecipes::Category
 
   @@all = []
 
@@ -37,13 +37,13 @@ class Category
     self.recipes.map(&:recipe).uniq
   end
 
-  def self.find_by_name(name)
-    self.all.find{|category| category.name == name}
-  end
+  # def self.find_by_name(name)
+  #   self.all.find{|category| category.name == name}
+  # end
 
-  def self.find_or_create_by_name(name)
-    self.find_by_name(name) || self.create(name)
-  end
+  # def self.find_or_create_by_name(name)
+  #   self.find_by_name(name) || self.create(name)
+  # end
 
 end
 

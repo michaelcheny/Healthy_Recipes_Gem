@@ -1,4 +1,4 @@
-class Recipes
+class HealthyRecipes::Recipes
 
   @@all = []
 
