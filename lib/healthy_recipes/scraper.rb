@@ -3,64 +3,62 @@ class RecipeScraper
   DOMAIN = "http://www.whfoods.com/"
   PATH_TO_RECIPE_PAGE = "recipestoc.php"
 
-  def self.scrape_recipe_by_categories(category)
-    case category
+  def self.scrape_recipe_by_categories(input_category)
+    case input_category
     when 1 #|| "breakfast"
-      selector = "breakfast"
+      selector, cate = "breakfast", "breakfast"
     when 2 #|| "salad entrees"
-      selector = "salad"
+      selector, cate = "salad", "salad entrees"
     when 3 #|| "soups"
-      selector = "soup"
+      selector, cate = "soup", "soups"
     when 4 #|| "fish"
-      selector = "fish" ###finish changing these names
+      selector, cate = "fish", "fish" 
     when 5 #|| "chicken and turkey"
-      selector = "poultry"
+      selector, cate = "poultry", "chicken and turkey"
     when 6 #|| "lean meat"
-      selector = "meat"
+      selector, cate = "meat", "lean meat"
     when 7 #|| "vegetarian entrees"
-      selector = "vegetarian"
+      selector, cate = "vegetarian", "vegetarian entrees"
     when 8 #|| "side salad/dressings"
-      selector = "sidesalad"
+      selector, cate = "sidesalad", "side salad/dressings"
     when 9 #|| "side vegetables"
-      selector = "sideveg"
+      selector, cate = "sideveg", "side vegetables"
     when 10 #|| "desserts"
-      selector = "dessert"
-
+      selector, cate = "dessert", "desserts"
     when 11 #|| "vegan breakfast"
-      selector = "vbreakfast"
+      selector, cate = "vbreakfast", "vegan breakfast"
     when 12 #|| "vegan salad entrees"
-      selector = "vsalad"
+      selector, cate = "vsalad", "vegan salad entrees"
     when 13 #|| "vegan soups"
-      selector = "vsoup"
+      selector, cate = "vsoup", "vegan soups"
     when 14 #|| "vegan vegetarian entrees"
-      selector = "vvegetarian"
+      selector, cate = "vvegetarian", "vegan vegetarian entrees"
     when 15 #|| "vegan side salad/dressings"
-      selector = "vsidesalad"
+      selector, cate = "vsidesalad", "vegan side salad/dressings"
     when 16 #|| "vegan side vegetables"
-      selector = "vsideveg"
+      selector, cate = "vsideveg", "vegan side vegetables"
     when 17 #|| "vegan desserts"
-      selector = "vdessert"
+      selector, cate = "vdessert", "vegan desserts"
     end
 
-    # @@recipes = []
+    # binding.pry
+    puts ""
+    puts "You selected the #{cate.split.map(&:capitalize).join(" ")} category. You savage."
     # puts "Scraping recipes from #{category.split.map(&:capitalize).join(" ")} category."
-    binding.pry
+    # binding.pry
     parsed_url = Nokogiri::HTML(open(DOMAIN + PATH_TO_RECIPE_PAGE))
-    # binding.pry
     recipe_container = parsed_url.css("div.slot-6-7-8")
-    # binding.pry
     recipe_container.css("h3##{selector}+ul.blist li a").each do |dish|  
-      binding.pry
         ## clean up leading white space
       
       name = dish.text.gsub(/^[ \t]/, "")
       url = DOMAIN + "#{dish.attr("href")}"
-      # type = "#{category.split.map(&:capitalize).join(" ")}"
+      category = "#{cate.split.map(&:capitalize).join(" ")}"
       # categoryy = Category.find_or_create_by_name(category)
-      animal_friendly = type.include?("Vegan") ? "Yes" : "No"
+      animal_friendly = category.include?("Vegan") ? "Yes" : "No"
 
-      # puts "Adding #{name} to recipes. Hang tight."
-      
+      puts "Adding #{name} to recipes. Hang tight."
+      binding.pry
         ## shove Recipes.new(attrs) into recipes
       # recipes << {
       #   name: name,
@@ -68,13 +66,11 @@ class RecipeScraper
       #   category: categoryy,
       #   animal_friendly: animal_friendly
       # }
-      # @@recipes = Recipes.new(name, url, categoryy, animal_friendly)
-      Recipes.new(name, url, type, animal_friendly)
-      # Recipes.new(name, url, category, animal_friendly)
+      Recipes.new(name, url, category, animal_friendly)
     end
     # binding.pry
-    # return @@recipes
   end
+
 
       ## scrape all the categories to start off
   def self.scrape_all_categories
