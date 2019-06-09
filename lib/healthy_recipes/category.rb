@@ -21,7 +21,7 @@ class Category
     @@all.clear
   end
 
-  def self.add_recipe(recipe)
+  def add_recipe(recipe)
     # binding.pry
     self.recipes << recipe unless self.recipes.include?(recipe)
     recipe.category = self unless recipe.category #== self

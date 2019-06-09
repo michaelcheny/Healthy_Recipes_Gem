@@ -2,18 +2,19 @@ class Recipes
 
   @@all = []
 
-  attr_accessor :name, :url, :type, :animal_friendly, :category, :ingredients, :directions, :in_depth_url, :macros
+  attr_accessor :name, :url, :type, :animal_friendly, :ingredients, :directions, :in_depth_url, :macros
+  attr_reader :category
 
 
     # will need to initialize recipes with more attrs
   def initialize(name = nil, url = nil, category = nil, animal_friendly = nil)
     @name = name
     @url = url
-    @category = category
+    @category = category if category
     @animal_friendly = animal_friendly
     @directions = nil
     @ingredients = nil
-    @in_depth_url = nil
+    @in_depth_url = "Unavailable"
     @macros = nil
     self.class.all << self
   end
@@ -27,9 +28,11 @@ class Recipes
     @@all.clear
   end
 
-  # def categories
-  #   self.categories.name
-  # end
+  def categories=(category)
+    @category = category
+    category.add_recipe(self)
+    binding.pry
+  end
 
   # add recipe
   # add ingredients 

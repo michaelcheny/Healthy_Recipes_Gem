@@ -1,14 +1,5 @@
 class CLI
 
-  ## blank line  ""
-  ## seperator   "---------------------------------------------------------------"
-  ## squiglyline "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-
-  # def initialize
-  #   start = RecipeScraper.new
-  #   start.scrape_all_categories
-  # end
-
   def call
     self.greeting
     sleep(1)
@@ -31,15 +22,7 @@ class CLI
   def start_scraping
 
   end
-#   def art
-#  puts "   __                _ 
-#     / _|              | |
-#    | |_ ___   ___   __| |
-#    |  _/ _ \ / _ \ / _` |
-#    | || (_) | (_) | (_| |
-#    |_| \___/ \___/ \__,_|"
-#   end
-   
+
 
   def greeting
     puts ""
