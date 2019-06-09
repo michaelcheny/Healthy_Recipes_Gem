@@ -6,55 +6,56 @@ class RecipeScraper
 
   def self.scrape_recipe_by_categories(category)
     case category
-    when "breakfast"
+    when 1 || "breakfast"
       selector = "breakfast"
-    when "salad"
+    when 2 || "salad"
       selector = "salad"
-    when "soup"
+    when 3 || "soup"
       selector = "soup"
-    when "fish"
+    when 4 || "fish"
       selector = "fish"
-    when "poultry"
+    when 5 || "poultry"
       selector = "poultry"
-    when "meat"
+    when 6 || "meat"
       selector = "meat"
-    when "vegetarian"
+    when 7 || "vegetarian"
       selector = "vegetarian"
-    when "side salad"
+    when 8 || "side salad"
       selector = "sidesalad"
-    when "side veggies"
+    when 9 || "side veggies"
       selector = "sideveg"
-    when "dessert"
+    when 10 || "dessert"
       selector = "dessert"
 
-    when "vegan breakfast"
+    when 11 || "vegan breakfast"
       selector = "vbreakfast"
-    when "vegan salad"
+    when 12 || "vegan salad"
       selector = "vsalad"
-    when "vegan soup"
+    when 13 || "vegan soup"
       selector = "vsoup"
-    when "vegan veggies"
+    when 14 || "vegan veggies"
       selector = "vvegetarian"
-    when "vegan side salad"
+    when 15 || "vegan side salad"
       selector = "vsidesalad"
-    when "vegan side veggies"
+    when 16 || "vegan side veggies"
       selector = "vsideveg"
-    when "vegan dessert"
+    when 17 || "vegan dessert"
       selector = "vdessert"
     end
 
     # @@recipes = []
     puts "Scraping recipes from #{category.split.map(&:capitalize).join(" ")} category."
-
+    # binding.pry
     parsed_url = Nokogiri::HTML(open(DOMAIN + PATH_TO_RECIPE_PAGE))
+    # binding.pry
     recipe_container = parsed_url.css("div.slot-6-7-8")
     recipe_container.css("h3##{selector}+ul.blist li a").each do |dish|  
-
+      binding.pry
         ## clean up leading white space
       
       name = dish.text.gsub(/^[ \t]/, "")
       url = DOMAIN + "#{dish.attr("href")}"
-      type = "#{category.split.map(&:capitalize).join(" ")}"
+      type = #"#{category.split.map(&:capitalize).join(" ")}"
       # categoryy = Category.find_or_create_by_name(category)
       animal_friendly = type.include?("Vegan") ? "Yes" : "No"
 
@@ -85,7 +86,7 @@ class RecipeScraper
     ## vegan
     general_container.css("h2#recipes~h3")[10..16].each { |container| @categories << "Vegan " + container.text}
     return @categories
-    binding.pry
+    # binding.pry
   end
 
 

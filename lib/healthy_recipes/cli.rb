@@ -62,10 +62,14 @@ class CLI
     puts "Please choose a number, or "
     puts ""
     # binding.pry
-    index = gets.strip.to_i - 1
-    recipe = HealthyRecipes::Recipes.category[index]
+    user_input = gets.strip
+
+    ### Once user gives input, use that input as argument to scrape which category.
+
+    # recipe = Recipes.category[index]
     # binding.pry
-    HealthyRecipes::RecipeScraper.scrape_ingredients_and_directions(recipe)
+    RecipeScraper.scrape_recipe_by_categories(user_input)
+    # RecipeScraper.scrape_ingredients_and_directions(recipe)
     # self.display_recipe_info(recipe)
   end
 
