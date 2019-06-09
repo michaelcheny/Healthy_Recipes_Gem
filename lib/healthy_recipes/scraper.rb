@@ -7,38 +7,38 @@ class RecipeScraper
     case category
     when "1" || "breakfast"
       selector = "breakfast"
-    when "2" || "salad"
+    when "2" || "salad entrees"
       selector = "salad"
-    when "3" || "soup"
+    when "3" || "soups"
       selector = "soup"
     when "4" || "fish"
-      selector = "fish"
-    when 5 || "poultry"
+      selector = "fish" ###finish changing these names
+    when "5" || "poultry"
       selector = "poultry"
-    when 6 || "meat"
+    when "6" || "meat"
       selector = "meat"
-    when 7 || "vegetarian"
+    when "7" || "vegetarian"
       selector = "vegetarian"
-    when 8 || "side salad"
+    when "8" || "side salad"
       selector = "sidesalad"
-    when 9 || "side veggies"
+    when "9" || "side veggies"
       selector = "sideveg"
-    when 10 || "dessert"
+    when "10" || "dessert"
       selector = "dessert"
 
-    when 11 || "vegan breakfast"
+    when "11" || "vegan breakfast"
       selector = "vbreakfast"
-    when 12 || "vegan salad"
+    when "12" || "vegan salad"
       selector = "vsalad"
-    when 13 || "vegan soup"
+    when "13" || "vegan soup"
       selector = "vsoup"
-    when 14 || "vegan veggies"
+    when "14" || "vegan veggies"
       selector = "vvegetarian"
-    when 15 || "vegan side salad"
+    when "15" || "vegan side salad"
       selector = "vsidesalad"
-    when 16 || "vegan side veggies"
+    when "16" || "vegan side veggies"
       selector = "vsideveg"
-    when 17 || "vegan dessert"
+    when "17" || "vegan dessert"
       selector = "vdessert"
     end
 
@@ -48,13 +48,14 @@ class RecipeScraper
     parsed_url = Nokogiri::HTML(open(DOMAIN + PATH_TO_RECIPE_PAGE))
     # binding.pry
     recipe_container = parsed_url.css("div.slot-6-7-8")
+    binding.pry
     recipe_container.css("h3##{selector}+ul.blist li a").each do |dish|  
       binding.pry
         ## clean up leading white space
       
       name = dish.text.gsub(/^[ \t]/, "")
       url = DOMAIN + "#{dish.attr("href")}"
-      type = #"#{category.split.map(&:capitalize).join(" ")}"
+      type = "#{category.split.map(&:capitalize).join(" ")}"
       # categoryy = Category.find_or_create_by_name(category)
       animal_friendly = type.include?("Vegan") ? "Yes" : "No"
 
