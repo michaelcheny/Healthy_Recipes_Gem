@@ -2,6 +2,7 @@ class RecipeScraper
 
   DOMAIN = "http://www.whfoods.com/"
   PATH_TO_RECIPE_PAGE = "recipestoc.php"
+  RECIPES = ["breakfast", "salad", "soup", "fish", "poultry", ]
 
   def self.scrape_recipe_by_categories(category)
     case category
@@ -78,13 +79,16 @@ class RecipeScraper
   def self.scrape_all_categories
 
     parsed_url = Nokogiri::HTML(open(DOMAIN + PATH_TO_RECIPE_PAGE))
-    recipe_container = parsed_url.css("div.slot-6-7-8")
+    general_container = parsed_url.css("div.slot-6-7-8")
 
-
-
-
-    binding.pry
-
+    # categories = []
+    ## non vegan
+    categories = general_container.css("h2#recipes~h3")[0..9].map{|cat| cat.text}
+    ## vegan
+    general_container.css("h2#recipes~h3")[10..16].each { |container| categories << "Vegan " + container.text}
+      binding.pry
+    
+  
 
 
 

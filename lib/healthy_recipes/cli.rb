@@ -7,7 +7,7 @@ class CLI
     ## let user select a category
     ## use that user's selection as an argument to scrape that category
     # HealthyRecipes::RecipeScraper.scrape_all_categories
-
+    RecipeScraper.scrape_all_categories
     self.list_categories
     # self.choose_categories
     # RecipeScraper.scrape_ingredients_and_directions(recipe)
