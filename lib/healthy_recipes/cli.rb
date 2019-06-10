@@ -64,7 +64,7 @@ class CLI
   end
 
   def list_recipes_from_category
-    puts "these are zee recipes from the selected category:"
+    puts "\n\nHere are your selections:\n\n"
     Recipes.all.each.with_index(1){|recipe, index| puts "#{index}. #{recipe.name}"}
     # binding.pry
   end
@@ -79,6 +79,8 @@ class CLI
     # puts recipe.directions
     # puts recipe.ingredients
   end
+
+  ### make more classes so each class does one thing
 
   def reject_input
     puts "Invalid input, please try again."
