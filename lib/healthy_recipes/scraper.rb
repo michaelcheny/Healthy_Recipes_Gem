@@ -83,7 +83,7 @@ class RecipeScraper
       # }
       Recipes.new(name, url, category, animal_friendly)
     end
-    binding.pry
+    # binding.pry
   end
 
 
@@ -105,6 +105,7 @@ class RecipeScraper
     end
   end
 
+  
   def scrape_nutrients_page 
 
 
