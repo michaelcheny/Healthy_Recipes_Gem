@@ -2,7 +2,7 @@ class Recipes
 
   @@all = []
 
-  attr_accessor :name, :url, :type, :animal_friendly, :ingredients, :directions, :in_depth_url, :macros
+  attr_accessor :name, :url, :type, :animal_friendly, :ingredients, :instructions, :in_depth_url, :macros
   attr_reader :category
 
 
@@ -12,7 +12,7 @@ class Recipes
     @url = url
     @category = category if category
     @animal_friendly = animal_friendly
-    @directions = nil
+    @instructions = nil
     @ingredients = nil
     @in_depth_url = "Unavailable"
     @macros = nil

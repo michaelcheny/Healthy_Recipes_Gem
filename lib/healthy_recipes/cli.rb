@@ -6,7 +6,7 @@ class CLI
     ## list out the categories
     ## let user select a category
     self.list_categories
-    self.choose_categories
+    # self.choose_categories
     ## list out recipes from category
     ## let users choose recipe
     self.list_recipes_from_category
@@ -31,14 +31,16 @@ class CLI
 
   def greeting
     puts ""
-    puts "---------------------------------------------------------------"
-    
+    self.seperator
+    puts ""
     puts "Welcome!"
     puts "This is a gem to let user's find healthy recipes!"
     puts "why eating healthy is beneficial"
     puts "add some other eat health facts"
-    puts "---------------------------------------------------------------"
     puts ""
+    self.seperator
+    puts ""
+    sleep(1)
   end
 
 
@@ -47,8 +49,9 @@ class CLI
     # binding.pry
     RecipeScraper.scrape_all_categories.each.with_index(1){|category, index| puts "#{index}. #{category}"}
     puts "\n"
-    # binding.pry
     # puts HealthyRecipes::Category.all.each_with_index{|c, i| puts "#{i+1}. #{c.name.split.map(&:capitalize).join(" ")}"}
+    # binding.pry
+    self.choose_categories
   end
   
   
@@ -67,7 +70,6 @@ class CLI
     puts "\n\nHere are your selections:\n\n"
     sleep(1)
     Recipes.all.each.with_index(1){|recipe, index| puts "#{index}. #{recipe.name}"}
-    # binding.pry
   end
   
   def choose_recipe_from_category
@@ -79,13 +81,17 @@ class CLI
   end 
 
   def display_recipe_info(recipe)
-    puts "\n#{recipe.name}\n"
-    puts "#{recipe.category}"
-    puts "#{recipe.animal_friendly}\n"
-    puts "#{recipe.url}"
-    puts "#{recipe.directions}"
-    puts "#{recipe.ingredients}"
+    self.seperator
+    puts "\n#{recipe.name}\n\n"
+    puts "Category:         |   #{recipe.category}"
+    puts "Animal friendly:  |   #{recipe.animal_friendly}\n"
+    puts "Link to recipe:   |   #{recipe.url}"
     # puts recipe.macros
+    puts "\n\nIngredients: \n#{recipe.ingredients}"
+    puts "\nStep by step instructions: \n\n"
+    recipe.instructions.split("\n").delete_if(&:empty?).each_with_index{|step, i| puts "#{i+1}. #{step}"}
+    self.seperator
+    # recipe.instructions.split("\n").each_with_index{|step, i| puts "#{i+1}. #{step}"}
     binding.pry
   end
 
@@ -93,6 +99,10 @@ class CLI
 
   def reject_input
     puts "Invalid input, please try again."
+  end
+
+  def seperator
+    puts "----------------------------------------------------------------------------"
   end
 
 end
