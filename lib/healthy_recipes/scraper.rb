@@ -77,13 +77,8 @@ class RecipeScraper
       Recipes.new(name, url, category, animal_friendly)
 
     end
-  end
 
-  #     ### back up for method above
-  # parsed_url = Nokogiri::HTML(open(DOMAIN + PATH_TO_RECIPE_PAGE))
-  #   recipe_container = parsed_url.css("div.slot-6-7-8")
-  #   recipe_container.css("h3##{selector}+ul.blist li a").each do |dish|  
-        
+  end
 
     ## scrapes the second layer for ingredients, direction, and url for 3rd page.
   def self.scrape_ingredients_and_directions(recipe)
@@ -96,14 +91,16 @@ class RecipeScraper
       recipe.ingredients = steps.css("tr td ul.llist").text
       recipe.directions = steps.css("p~ol").text
       recipe.in_depth_url = steps.css("p b:contains('In-Depth Nutritional Profile')+a").attr('href').text unless steps.css("p b:contains('In-Depth Nutritional Profile')+a").attr('href').nil?
-    binding.pry
+
     end
   end
 
   
-  def scrape_nutrients_page 
+  def scrape_macro_nutrients_page(recipe)
 
-
+    recipe_page_2_url = recipe.in_depth_url
+    parsed_url = Nokogiri::HTML(open(recipe_page_2_url))
+    binding.pry
   end
 
 
@@ -112,7 +109,7 @@ class RecipeScraper
 
 
 
-  # scrape level 2 for recipe and instructions
+
 
   # scrape level 3 for macros
 

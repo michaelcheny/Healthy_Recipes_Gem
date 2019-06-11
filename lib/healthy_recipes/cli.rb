@@ -72,9 +72,8 @@ class CLI
     puts "\nPlease choose a recipe number: \n"
     index = gets.strip.to_i - 1
     recipe_number = Recipes.all[index]
-    # binding.pry
     RecipeScraper.scrape_ingredients_and_directions(recipe_number)
-    binding.pry   ###working on this when i switch to laptop
+    binding.pry  
   end 
 
   def display_recipe_info(recipe)
