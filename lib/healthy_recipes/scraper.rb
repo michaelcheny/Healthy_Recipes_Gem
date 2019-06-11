@@ -10,17 +10,22 @@ class RecipeScraper
 
     ## scrape all the categories to start off
   def self.scrape_all_categories
+
     parsed_url = Nokogiri::HTML(open(DOMAIN + PATH_TO_RECIPE_PAGE))
-    general_container = parsed_url.css("div.slot-6-7-8")
-    categories = general_container.css("h2#recipes~h3")[0..9].map(&:text) ## non vegan
-    general_container.css("h2#recipes~h3")[10..16].each { |container| categories << "Vegan " + container.text}  ## vegan
+    category_name_container = parsed_url.css("div.slot-6-7-8 h2#recipes~h3")
+
+    categories = category_name_container[0..9].map(&:text) ## non vegan
+    category_name_container[10..16].each { |container| categories << "Vegan " + container.text}  ## vegan
+    
     return categories
+
   end
 
 
-
   def self.scrape_recipe_by_categories(input_category)
+
     case input_category
+
     when 1 
       selector, cate = "breakfast", "breakfast"
     when 2 
@@ -62,15 +67,15 @@ class RecipeScraper
 
     parsed_url = Nokogiri::HTML(open(DOMAIN + PATH_TO_RECIPE_PAGE))
     recipe_container = parsed_url.css("div.slot-6-7-8 h3##{selector}+ul.blist li a")
-    
     recipe_container.each do |dish| 
       
       name = dish.text.gsub(/^[ \t]/, "") ## clean up leading white space
       url = DOMAIN + "#{dish.attr("href")}"
       category = "#{cate.split.map(&:capitalize).join(" ")}"
       animal_friendly = category.include?("Vegan") ? "Yes" : "No"
-      binding.pry
+
       Recipes.new(name, url, category, animal_friendly)
+
     end
   end
 
@@ -82,6 +87,7 @@ class RecipeScraper
 
     ## scrapes the second layer for ingredients, direction, and url for 3rd page.
   def self.scrape_ingredients_and_directions(recipe)
+
     recipe_url = recipe.url
     parsed_url = Nokogiri::HTML(open(recipe_url))
     level_one_container = parsed_url.css("div.slot-6-7-8")
