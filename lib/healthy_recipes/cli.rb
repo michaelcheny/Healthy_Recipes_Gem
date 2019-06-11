@@ -72,17 +72,21 @@ class CLI
   
   def choose_recipe_from_category
     puts "\nPlease choose a recipe number: \n"
-    index = gets.strip.to_i - 1
-    recipe_number = Recipes.all[index]
+    recipe_selection_index = gets.strip.to_i - 1
+    recipe_number = Recipes.all[recipe_selection_index]
     RecipeScraper.scrape_ingredients_and_directions(recipe_number)
-    binding.pry  
+    display_recipe_info(recipe_number)
   end 
 
   def display_recipe_info(recipe)
-    puts recipe.name
-    puts recipe.url
-    # puts recipe.directions
-    # puts recipe.ingredients
+    puts "\n#{recipe.name}\n"
+    puts "#{recipe.category}"
+    puts "#{recipe.animal_friendly}\n"
+    puts "#{recipe.url}"
+    puts "#{recipe.directions}"
+    puts "#{recipe.ingredients}"
+    # puts recipe.macros
+    binding.pry
   end
 
   ### make more classes so each class does one thing
