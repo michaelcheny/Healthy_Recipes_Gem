@@ -70,7 +70,9 @@ class CLI
   
   def choose_recipe_from_category
     puts "\nPlease choose a recipe number: \n"
-    recipe_number = gets.strip.to_i
+    index = gets.strip.to_i - 1
+    recipe_number = Recipes.all[index]
+    # binding.pry
     RecipeScraper.scrape_ingredients_and_directions(recipe_number)
     binding.pry   ###working on this when i switch to laptop
   end 

@@ -12,12 +12,9 @@ class RecipeScraper
   def self.scrape_all_categories
     parsed_url = Nokogiri::HTML(open(DOMAIN + PATH_TO_RECIPE_PAGE))
     general_container = parsed_url.css("div.slot-6-7-8")
-    ## non vegan
-    categories = general_container.css("h2#recipes~h3")[0..9].map(&:text)
-    ## vegan
-    general_container.css("h2#recipes~h3")[10..16].each { |container| categories << "Vegan " + container.text}
+    categories = general_container.css("h2#recipes~h3")[0..9].map(&:text) ## non vegan
+    general_container.css("h2#recipes~h3")[10..16].each { |container| categories << "Vegan " + container.text}  ## vegan
     return categories
-    
   end
 
 
@@ -62,42 +59,34 @@ class RecipeScraper
 
     puts ""
     puts "You selected the #{cate.split.map(&:capitalize).join(" ")} category. You savage."
-    # puts "Scraping recipes from #{category.split.map(&:capitalize).join(" ")} category."
+
     parsed_url = Nokogiri::HTML(open(DOMAIN + PATH_TO_RECIPE_PAGE))
-    recipe_container = parsed_url.css("div.slot-6-7-8")
-    recipe_container.css("h3##{selector}+ul.blist li a").each do |dish|  
-        
+    recipe_container = parsed_url.css("div.slot-6-7-8 h3##{selector}+ul.blist li a")
+    
+    recipe_container.each do |dish| 
+      
       name = dish.text.gsub(/^[ \t]/, "") ## clean up leading white space
       url = DOMAIN + "#{dish.attr("href")}"
       category = "#{cate.split.map(&:capitalize).join(" ")}"
-      # categoryy = Category.find_or_create_by_name(category)
       animal_friendly = category.include?("Vegan") ? "Yes" : "No"
-
-      # binding.pry
-        ## shove Recipes.new(attrs) into recipes
-      # recipes << {
-      #   name: name,
-      #   ingredient_url: url,
-      #   category: categoryy,
-      #   animal_friendly: animal_friendly
-      # }
+      binding.pry
       Recipes.new(name, url, category, animal_friendly)
     end
-    # binding.pry
   end
 
+  #     ### back up for method above
+  # parsed_url = Nokogiri::HTML(open(DOMAIN + PATH_TO_RECIPE_PAGE))
+  #   recipe_container = parsed_url.css("div.slot-6-7-8")
+  #   recipe_container.css("h3##{selector}+ul.blist li a").each do |dish|  
+        
 
-      
-
-
-
-
-
-
+    ## scrapes the second layer for ingredients, direction, and url for 3rd page.
   def self.scrape_ingredients_and_directions(recipe)
     recipe_url = recipe.url
-    level_one_container = Nokogiri::HTML(open(recipe_url))
-    level_one_container.css("div.slot-6-7-8").each do |steps|
+    parsed_url = Nokogiri::HTML(open(recipe_url))
+    level_one_container = parsed_url.css("div.slot-6-7-8")
+    level_one_container.each do |steps|
+
       recipe.ingredients = steps.css("tr td ul.llist").text
       recipe.directions = steps.css("p~ol").text
       recipe.in_depth_url = steps.css("p b:contains('In-Depth Nutritional Profile')+a").attr('href').text unless steps.css("p b:contains('In-Depth Nutritional Profile')+a").attr('href').nil?
@@ -113,7 +102,7 @@ class RecipeScraper
 
 
 
-
+# woodhcuckwoockduckwoodchuckwoodloghappydogcatmeowcamelmoosefasjflsfadkasdbadansbtestingkeyboardblahblahblahtacotacojenniferlopeztacotacosdfjskfjsdkljfsiweiorwiouer29384729837489237412093834589745690--=sdlfjkqweiopertuioxmcvnmxcnvxcnvblahblahhellllloooooo
 
 
 
