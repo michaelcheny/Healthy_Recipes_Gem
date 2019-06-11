@@ -7,6 +7,8 @@ class CLI
     ## let user select a category
     self.list_categories
     self.choose_categories
+    ## list out recipes from category
+    ## let users choose recipe
     self.list_recipes_from_category
     self.choose_recipe_from_category
     ## use that user's selection as an argument to scrape that category
@@ -53,23 +55,23 @@ class CLI
   def choose_categories
     puts "Please choose a category number:\n"
     category_input = gets.strip.to_i 
-    # puts "\n\n"
     ### Once user gives input, use that input as argument to scrape which category.
-    # recipe = Recipes.new[index]
-    # binding.pry
     RecipeScraper.scrape_recipe_by_categories(category_input)
-    
     # RecipeScraper.scrape_ingredients_and_directions(recipe)
     # self.display_recipe_info(recipe)
   end
 
   def list_recipes_from_category
     puts "\n\nHere are your selections:\n\n"
+    sleep(1)
     Recipes.all.each.with_index(1){|recipe, index| puts "#{index}. #{recipe.name}"}
     # binding.pry
   end
   
   def choose_recipe_from_category
+    puts "\nPlease choose a recipe number: \n"
+    recipe_number = gets.strip.to_i
+    RecipeScraper.scrape_ingredients_and_directions(recipe_number)
     binding.pry   ###working on this when i switch to laptop
   end 
 
