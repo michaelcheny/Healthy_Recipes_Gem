@@ -12,6 +12,8 @@ class CLI
     self.list_recipes_from_category
     self.choose_recipe_from_category
     ## use that user's selection as an argument to scrape that category
+
+    ##### ADD CONDITIOnals TO make program work like a program
     
     # loop do
     #   user_input = main_menu

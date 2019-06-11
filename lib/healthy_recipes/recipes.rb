@@ -24,15 +24,15 @@ class Recipes
   end
 
   
-  def self.destroy_all
-    @@all.clear
-  end
+  # def self.destroy_all
+  #   @@all.clear
+  # end
 
-  def categories=(category)
-    @category = category
-    category.add_recipe(self)
-    binding.pry
-  end
+  # def categories=(category)
+  #   @category = category
+  #   category.add_recipe(self)
+  #   binding.pry
+  # end
 
   # add recipe
   # add ingredients 
