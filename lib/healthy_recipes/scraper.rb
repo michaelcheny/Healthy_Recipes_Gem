@@ -88,7 +88,7 @@ class RecipeScraper
       recipe.ingredients = steps.css("tr td ul.llist").text
       recipe.instructions = steps.css("p~ol").text
       recipe.in_depth_url = DOMAIN + steps.css("p b:contains('In-Depth Nutritional Profile')+a").attr('href').text unless steps.css("p b:contains('In-Depth Nutritional Profile')+a").attr('href').nil?
-      # binding.pry
+
     end
   end
 
@@ -97,7 +97,12 @@ class RecipeScraper
 
     recipe_page_2_url = recipe.in_depth_url
     parsed_url = Nokogiri::HTML(open(recipe_page_2_url))
-    binding.pry
+    nutrient_container = parsed_url.css("div.slot-6-7-8  table")
+    nutrient_container.each do |item|
+
+      recipe.calories = item.css("tr td:contains('Calories')+td")[0].text.to_i.round unless recipe.in_depth_url == "Unavailable"
+    # binding.pry
+    end
   end
 
 

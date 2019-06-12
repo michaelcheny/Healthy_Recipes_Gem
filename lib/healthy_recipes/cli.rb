@@ -54,8 +54,6 @@ class CLI
     self.choose_categories
   end
   
-  
-
 
   def choose_categories
     puts "Please choose a category number:\n"
@@ -66,12 +64,14 @@ class CLI
     # self.display_recipe_info(recipe)
   end
 
+
   def list_recipes_from_category
     puts "\n\nHere are your selections:\n\n"
     sleep(1)
     Recipes.all.each.with_index(1){|recipe, index| puts "#{index}. #{recipe.name}"}
   end
   
+
   def choose_recipe_from_category
 
     puts "\nPlease choose a recipe number: \n"
@@ -83,15 +83,17 @@ class CLI
     RecipeScraper.scrape_macro_nutrients_page(recipe_number) unless Recipes.all[recipe_selection_index].in_depth_url == "Unavailable"
 
     display_recipe_info(recipe_number)
+
   end 
+
 
   def display_recipe_info(recipe)
     self.seperator
     puts "\n#{recipe.name}\n\n"
-    puts "Category:           |     #{recipe.category}"
-    puts "Animal friendly:    |     #{recipe.animal_friendly}\n"
-    puts "Link to recipe:     |     #{recipe.url}"
-    # puts recipe.macros      |     #{recipe.macros}
+    puts "Category:                  #{recipe.category}"
+    puts "Animal friendly:           #{recipe.animal_friendly}\n"
+    puts "Link to recipe:            #{recipe.url}\n\n"
+    puts "Estimated Calories:        #{recipe.calories}"
     puts "\n\nIngredients: \n#{recipe.ingredients}"
     puts "\nStep by step instructions: \n\n"
     recipe.instructions.split("\n").delete_if(&:empty?).each_with_index{|step, i| puts "#{i+1}. #{step}"}
