@@ -3,7 +3,7 @@ class CLI
   def call
     ## greet user
     self.greeting
-    RecipeScraper.scrape_all_recipes_to_begin_program
+    RecipeScraper.make_recipes_from_categories
     ## list out the categories
     ## let user select a category
     self.list_categories

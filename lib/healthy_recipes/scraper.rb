@@ -21,6 +21,71 @@ class RecipeScraper
 
   end
 
+
+
+  def self.make_recipes_from_categories
+    self.scrape_all_categories.each do |each_category|
+
+      case each_category
+
+      when "Breakfast"
+        selector = "breakfast" 
+      when "Salad Entrees" 
+        selector = "salad" 
+      when "Soups"
+        selector = "soup" 
+      when "Fish"
+        selector = "fish"  
+      when "Chicken and Turkey"
+        selector = "poultry" 
+      when "Lean Meat"
+        selector = "meat" 
+      when "Vegetarian Entrees"
+        selector = "vegetarian" 
+      when "Side Salad/Dressings"
+        selector = "sidesalad" 
+      when "Side Vegetables"
+        selector = "sideveg" 
+      when "Desserts"
+        selector = "dessert" 
+      when "Vegan Breakfast" 
+        selector = "vbreakfast" 
+      when "Vegan Salad Entrees"
+        selector = "vsalad" 
+      when "Vegan Soups" 
+        selector = "vsoup" 
+      when "Vegan Vegetarian Entrees"
+        selector = "vvegetarian"
+      when "Vegan Side Salad/Dressings"
+        selector = "vsidesalad" 
+      when "Vegan Side Vegetables" 
+        selector = "vsideveg" 
+      when "Vegan Desserts" 
+        selector = "vdessert" 
+      end
+
+      parsed_url = Nokogiri::HTML(open(DOMAIN + PATH_TO_RECIPE_PAGE))
+      recipe_container = parsed_url.css("div.slot-6-7-8 h3##{selector}+ul.blist li a")
+      recipe_container.each do |dish| 
+        
+        name = dish.text.gsub(/^[ \t]/, "") ## clean up leading white space
+        url = DOMAIN + "#{dish.attr("href")}"
+        category = "#{each_category}"
+        animal_friendly = category.include?("Vegan") ? "Yes" : "No"
+
+        Recipes.new(name, url, category, animal_friendly)
+        # binding.pry
+      end
+    end
+    binding.pry
+  end
+
+
+
+
+
+
+
     ## once given input, scrape that input's catgory
   def self.scrape_recipe_by_categories(input_category)
 
