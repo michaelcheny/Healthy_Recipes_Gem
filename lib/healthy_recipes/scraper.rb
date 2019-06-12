@@ -21,7 +21,7 @@ class RecipeScraper
 
   end
 
-
+    ## once given input, scrape that input's catgory
   def self.scrape_recipe_by_categories(input_category)
 
     case input_category
@@ -90,28 +90,18 @@ class RecipeScraper
 
       recipe.ingredients = steps.css("tr td ul.llist").text
       recipe.instructions = steps.css("p~ol").text
-      recipe.in_depth_url = steps.css("p b:contains('In-Depth Nutritional Profile')+a").attr('href').text unless steps.css("p b:contains('In-Depth Nutritional Profile')+a").attr('href').nil?
+      recipe.in_depth_url = DOMAIN + steps.css("p b:contains('In-Depth Nutritional Profile')+a").attr('href').text unless steps.css("p b:contains('In-Depth Nutritional Profile')+a").attr('href').nil?
 
     end
   end
 
-  
-  def scrape_macro_nutrients_page(recipe)
+    # scrape level 3 for macros
+  def self.scrape_macro_nutrients_page(recipe)
 
     recipe_page_2_url = recipe.in_depth_url
     parsed_url = Nokogiri::HTML(open(recipe_page_2_url))
     binding.pry
   end
-
-
-
-# woodhcuckwoockduckwoodchuckwoodloghappydogcatmeowcamelmoosefasjflsfadkasdbadansbtestingkeyboardblahblahblahtacotacojenniferlopeztacotacosdfjskfjsdkljfsiweiorwiouer29384729837489237412093834589745690--=sdlfjkqweiopertuioxmcvnmxcnvxcnvblahblahhelllllooooooskhfsjhdfhellowordldtestingwalruswalrushippollama
-
-
-
-
-
-  # scrape level 3 for macros
 
 
 

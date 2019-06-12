@@ -77,21 +77,21 @@ class CLI
     recipe_selection_index = gets.strip.to_i - 1
     recipe_number = Recipes.all[recipe_selection_index]
     RecipeScraper.scrape_ingredients_and_directions(recipe_number)
+    RecipeScraper.scrape_macro_nutrients_page(recipe_number)
     display_recipe_info(recipe_number)
   end 
 
   def display_recipe_info(recipe)
     self.seperator
     puts "\n#{recipe.name}\n\n"
-    puts "Category:         |   #{recipe.category}"
-    puts "Animal friendly:  |   #{recipe.animal_friendly}\n"
-    puts "Link to recipe:   |   #{recipe.url}"
-    # puts recipe.macros
+    puts "Category:           |     #{recipe.category}"
+    puts "Animal friendly:    |     #{recipe.animal_friendly}\n"
+    puts "Link to recipe:     |     #{recipe.url}"
+    # puts recipe.macros      |     #{recipe.macros}
     puts "\n\nIngredients: \n#{recipe.ingredients}"
     puts "\nStep by step instructions: \n\n"
     recipe.instructions.split("\n").delete_if(&:empty?).each_with_index{|step, i| puts "#{i+1}. #{step}"}
     self.seperator
-    # recipe.instructions.split("\n").each_with_index{|step, i| puts "#{i+1}. #{step}"}
     binding.pry
   end
 
