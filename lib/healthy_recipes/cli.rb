@@ -3,6 +3,7 @@ class CLI
   def call
     ## greet user
     self.greeting
+    RecipeScraper.scrape_all_recipes_to_begin_program
     ## list out the categories
     ## let user select a category
     self.list_categories
@@ -69,6 +70,7 @@ class CLI
     puts "\n\nHere are your selections:\n\n"
     sleep(1)
     Recipes.all.each.with_index(1){|recipe, index| puts "#{index}. #{recipe.name}"}
+    binding.pry
   end
   
 
@@ -80,7 +82,7 @@ class CLI
     recipe_number = Recipes.all[recipe_selection_index]
 
     RecipeScraper.scrape_ingredients_and_directions(recipe_number)
-    RecipeScraper.scrape_macro_nutrients_page(recipe_number) unless Recipes.all[recipe_selection_index].in_depth_url == "Unavailable"
+    RecipeScraper.scrape_calories_page(recipe_number) unless Recipes.all[recipe_selection_index].in_depth_url == "Unavailable"
 
     display_recipe_info(recipe_number)
 
@@ -102,6 +104,10 @@ class CLI
   end
 
   ### make more classes so each class does one thing
+
+  def menu_guidance
+    puts "Type 'main' to go back to main menu, or 'exit' to exit."
+  end
 
   def reject_input
     puts "Invalid input, please try again."

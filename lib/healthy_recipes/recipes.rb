@@ -2,8 +2,8 @@ class Recipes
 
   @@all = []
 
-  attr_accessor :name, :url, :type, :animal_friendly, :ingredients, :instructions, :in_depth_url, :macros, :calories
-  attr_reader :category
+  attr_accessor :name, :url, :category, :type, :animal_friendly, :ingredients, :instructions, :in_depth_url, :macros, :calories
+  # attr_reader :category
 
 
     # will need to initialize recipes with more attrs

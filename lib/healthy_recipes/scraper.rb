@@ -92,8 +92,8 @@ class RecipeScraper
     end
   end
 
-    # scrape level 3 for macros
-  def self.scrape_macro_nutrients_page(recipe)
+    # scrape level 3 for calories
+  def self.scrape_calories_page(recipe)
 
     recipe_page_2_url = recipe.in_depth_url
     parsed_url = Nokogiri::HTML(open(recipe_page_2_url))
@@ -104,6 +104,28 @@ class RecipeScraper
     # binding.pry
     end
   end
+
+
+
+
+
+
+
+
+
+  def self.scrape_all_recipes_to_begin_program
+    parsed_url = Nokogiri::HTML(open(DOMAIN + PATH_TO_RECIPE_PAGE))
+    recipe_container = parsed_url.css("div.slot-6-7-8 h3+ul.blist li a")
+    recipe_container.each do |dish| 
+
+      name = dish.text.gsub(/^[ \t]/, "")
+      url = DOMAIN + "#{dish.attr("href")}"
+      binding.pry
+    end
+
+  end
+
+
 
 
 
