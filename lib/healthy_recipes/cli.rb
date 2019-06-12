@@ -73,11 +73,15 @@ class CLI
   end
   
   def choose_recipe_from_category
+
     puts "\nPlease choose a recipe number: \n"
+
     recipe_selection_index = gets.strip.to_i - 1
     recipe_number = Recipes.all[recipe_selection_index]
+
     RecipeScraper.scrape_ingredients_and_directions(recipe_number)
-    RecipeScraper.scrape_macro_nutrients_page(recipe_number)
+    RecipeScraper.scrape_macro_nutrients_page(recipe_number) unless Recipes.all[recipe_selection_index].in_depth_url == "Unavailable"
+
     display_recipe_info(recipe_number)
   end 
 

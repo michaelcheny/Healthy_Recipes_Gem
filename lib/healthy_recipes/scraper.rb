@@ -62,9 +62,6 @@ class RecipeScraper
       selector, cate = "vdessert", "vegan desserts"
     end
 
-    # puts ""
-    # puts "You selected the #{cate.split.map(&:capitalize).join(" ")} category. You savage."
-
     parsed_url = Nokogiri::HTML(open(DOMAIN + PATH_TO_RECIPE_PAGE))
     recipe_container = parsed_url.css("div.slot-6-7-8 h3##{selector}+ul.blist li a")
     recipe_container.each do |dish| 
@@ -91,7 +88,7 @@ class RecipeScraper
       recipe.ingredients = steps.css("tr td ul.llist").text
       recipe.instructions = steps.css("p~ol").text
       recipe.in_depth_url = DOMAIN + steps.css("p b:contains('In-Depth Nutritional Profile')+a").attr('href').text unless steps.css("p b:contains('In-Depth Nutritional Profile')+a").attr('href').nil?
-
+      # binding.pry
     end
   end
 

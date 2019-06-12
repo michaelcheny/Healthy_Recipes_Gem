@@ -10,12 +10,12 @@ class Recipes
   def initialize(name = nil, url = nil, category = nil, animal_friendly = nil)
     @name = name
     @url = url
-    @category = category if category
+    @category = category #if category
     @animal_friendly = animal_friendly
     @instructions = nil
     @ingredients = nil
     @in_depth_url = "Unavailable"
-    @macros = nil
+    @macros = "Unavailable"
     self.class.all << self
   end
 
