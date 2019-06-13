@@ -53,10 +53,11 @@ class CLI
 
   def choose_category
     puts "Please choose category number:"
+
     user_selected_index = gets.strip.to_i - 1
 
     category = Recipes.get_category_names[user_selected_index]
-    # binding.pry
+    
     self.list_recipes_from_category(category)
   end
 
@@ -64,12 +65,45 @@ class CLI
   def list_recipes_from_category(selected_category)
 
     recipes = Recipes.group_by_category(selected_category)
-    # binding.pry
     recipes.each.with_index(1){|recipe_object, index| puts "#{index}. #{recipe_object.name}"}
-    # binding.pry
-    #.each.with_index(1){|recipe, index| puts "#{index}. #{recipe}"}
 
+    puts "Please choose a recipe number:"
+    recipe_index = gets.strip.to_i - 1
+
+    selected_recipe = recipes[recipe_index]
+    binding.pry
+  #  self.choose_recipe_from_category
   end
+
+  # def choose_recipe_from_category
+  #   puts "Please choose a recipe number:"
+  #   recipe_index = gets.strip.to_i - 1
+
+  #   recipe = Recipes.group_by_category(recipes)[recipe_index]
+  #   binding.pry
+  # end
+
+  def display_recipe_info(recipe)
+    self.seperator
+    puts "\n#{recipe.name}\n\n"
+    puts "Category:                  #{recipe.category}"
+    puts "Animal friendly:           #{recipe.animal_friendly}\n"
+    puts "Link to recipe:            #{recipe.url}\n\n"
+    puts "Estimated Calories:        #{recipe.calories}"
+    puts "\n\nIngredients: \n#{recipe.ingredients}"
+    puts "\nStep by step instructions: \n\n"
+    recipe.instructions.split("\n").delete_if(&:empty?).each_with_index{|step, i| puts "#{i+1}. #{step}"}
+    self.seperator
+    binding.pry
+  end
+
+
+
+
+   
+
+
+
 
   # def list_categories
   #   puts "The categories you can choose from:\n\n"
@@ -100,34 +134,22 @@ class CLI
   # end
   
 
-  def choose_recipe_from_category
+  # def choose_recipe_from_category
 
-    puts "\nPlease choose a recipe number: \n"
+  #   puts "\nPlease choose a recipe number: \n"
 
-    recipe_selection_index = gets.strip.to_i - 1
-    recipe_number = Recipes.all[recipe_selection_index]
+  #   recipe_selection_index = gets.strip.to_i - 1
+  #   recipe_number = Recipes.all[recipe_selection_index]
 
-    RecipeScraper.scrape_ingredients_and_directions(recipe_number)
-    RecipeScraper.scrape_calories_page(recipe_number) unless Recipes.all[recipe_selection_index].in_depth_url == "Unavailable"
+  #   RecipeScraper.scrape_ingredients_and_directions(recipe_number)
+  #   RecipeScraper.scrape_calories_page(recipe_number) unless Recipes.all[recipe_selection_index].in_depth_url == "Unavailable"
 
-    display_recipe_info(recipe_number)
+  #   display_recipe_info(recipe_number)
 
-  end 
+  # end 
 
 
-  def display_recipe_info(recipe)
-    self.seperator
-    puts "\n#{recipe.name}\n\n"
-    puts "Category:                  #{recipe.category}"
-    puts "Animal friendly:           #{recipe.animal_friendly}\n"
-    puts "Link to recipe:            #{recipe.url}\n\n"
-    puts "Estimated Calories:        #{recipe.calories}"
-    puts "\n\nIngredients: \n#{recipe.ingredients}"
-    puts "\nStep by step instructions: \n\n"
-    recipe.instructions.split("\n").delete_if(&:empty?).each_with_index{|step, i| puts "#{i+1}. #{step}"}
-    self.seperator
-    binding.pry
-  end
+
 
   ### make more classes so each class does one thing
 
