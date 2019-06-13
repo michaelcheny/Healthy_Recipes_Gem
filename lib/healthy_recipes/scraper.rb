@@ -3,11 +3,7 @@ class RecipeScraper
   DOMAIN = "http://www.whfoods.com/"
   PATH_TO_RECIPE_PAGE = "recipestoc.php"
 
-    ### NOTES
-    # first scrape categories
-    # second scrape recipes in that category
-    # third scrape macros for that recipe
-
+   
     ## scrape all the categories to start off
   def self.scrape_all_categories
 
@@ -109,84 +105,6 @@ class RecipeScraper
     # binding.pry
     end
   end
-
-
-
-
-
-
-    ## once given input, scrape that input's catgory
-  # def self.scrape_recipe_by_categories(input_category)
-
-  #   case input_category
-
-  #   when 1 
-  #     selector, cate = "breakfast", "breakfast"
-  #   when 2 
-  #     selector, cate = "salad", "salad entrees"
-  #   when 3 
-  #     selector, cate = "soup", "soups"
-  #   when 4 
-  #     selector, cate = "fish", "fish" 
-  #   when 5 
-  #     selector, cate = "poultry", "chicken and turkey"
-  #   when 6 
-  #     selector, cate = "meat", "lean meat"
-  #   when 7 
-  #     selector, cate = "vegetarian", "vegetarian entrees"
-  #   when 8 
-  #     selector, cate = "sidesalad", "side salad/dressings"
-  #   when 9 
-  #     selector, cate = "sideveg", "side vegetables"
-  #   when 10 
-  #     selector, cate = "dessert", "desserts"
-  #   when 11 
-  #     selector, cate = "vbreakfast", "vegan breakfast"
-  #   when 12 
-  #     selector, cate = "vsalad", "vegan salad entrees"
-  #   when 13 
-  #     selector, cate = "vsoup", "vegan soups"
-  #   when 14 
-  #     selector, cate = "vvegetarian", "vegan vegetarian entrees"
-  #   when 15 
-  #     selector, cate = "vsidesalad", "vegan side salad/dressings"
-  #   when 16 
-  #     selector, cate = "vsideveg", "vegan side vegetables"
-  #   when 17 
-  #     selector, cate = "vdessert", "vegan desserts"
-  #   end
-
-  #   parsed_url = Nokogiri::HTML(open(DOMAIN + PATH_TO_RECIPE_PAGE))
-  #   recipe_container = parsed_url.css("div.slot-6-7-8 h3##{selector}+ul.blist li a")
-  #   recipe_container.each do |dish| 
-      
-  #     name = dish.text.gsub(/^[ \t]/, "") ## clean up leading white space
-  #     url = DOMAIN + "#{dish.attr("href")}"
-  #     category = "#{cate.split.map(&:capitalize).join(" ")}"
-  #     animal_friendly = category.include?("Vegan") ? "Yes" : "No"
-
-  #     Recipes.new(name, url, category, animal_friendly)
-
-  #   end
-
-  # end
-
-
-
-
-  # def self.scrape_all_recipes_to_begin_program
-  #   parsed_url = Nokogiri::HTML(open(DOMAIN + PATH_TO_RECIPE_PAGE))
-  #   recipe_container = parsed_url.css("div.slot-6-7-8 h3+ul.blist li a")
-  #   recipe_container.each do |dish| 
-
-  #     name = dish.text.gsub(/^[ \t]/, "")
-  #     url = DOMAIN + "#{dish.attr("href")}"
-  #     binding.pry
-  #   end
-
-  # end
-
-
 
 
 end
