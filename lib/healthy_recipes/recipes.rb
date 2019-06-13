@@ -29,7 +29,7 @@ class Recipes
 
   def self.group_by_category(user_selected_category)
     # binding.pry
-    self.all.map{|recipe| return recipe if recipe.category == user_selected_category}
+    self.all.map{|recipe| recipe if recipe.category == user_selected_category}.compact
   end
 
 

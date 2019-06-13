@@ -56,14 +56,19 @@ class CLI
     user_selected_index = gets.strip.to_i - 1
 
     category = Recipes.get_category_names[user_selected_index]
-
+    # binding.pry
     self.list_recipes_from_category(category)
   end
 
 
   def list_recipes_from_category(selected_category)
 
-    Recipes.group_by_category(selected_catgory)
+    recipes = Recipes.group_by_category(selected_category)
+    # binding.pry
+    recipes.each.with_index(1){|recipe_object, index| puts "#{index}. #{recipe_object.name}"}
+    # binding.pry
+    #.each.with_index(1){|recipe, index| puts "#{index}. #{recipe}"}
+
   end
 
   # def list_categories
