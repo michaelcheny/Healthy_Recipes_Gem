@@ -55,9 +55,8 @@ class CLI
     puts "Please choose category number:"
 
     user_selected_index = gets.strip.to_i - 1
-
-    category = Recipes.get_category_names[user_selected_index]
     
+    category = Recipes.get_category_names[user_selected_index]
     self.list_recipes_from_category(category)
   end
 
@@ -71,8 +70,15 @@ class CLI
     recipe_index = gets.strip.to_i - 1
 
     selected_recipe = recipes[recipe_index]
-    binding.pry
-  #  self.choose_recipe_from_category
+    # binding.pry
+    # self.choose_recipe_from_category
+    self.get_recipe_info(selected_recipe)
+  end
+
+  def get_recipe_info(recipe)
+    RecipeScraper.scrape_ingredients_and_directions(recipe)
+    RecipeScraper.scrape_calories_page(recipe)
+    self.display_recipe_info(recipe)
   end
 
   # def choose_recipe_from_category
