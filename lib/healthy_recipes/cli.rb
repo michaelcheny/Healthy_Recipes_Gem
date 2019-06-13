@@ -4,17 +4,16 @@ class CLI
     ## greet user
     self.greeting
     RecipeScraper.make_recipes_from_categories
-    self.list_categories
+    loop do
+      user_input = main_menu
+      if user_input == "exit" || user_input.include?("n")
+        return
+      else
+        self.list_categories
+      end
+    end
     ## list out the categories
-    ## let user select a category
-    # self.list_categories
-    # self.choose_categories
-    ## list out recipes from category
-    ## let users choose recipe
-    # self.list_recipes_from_category
-    # self.choose_recipe_from_category
-    ## use that user's selection as an argument to scrape that category
-
+  
     ##### ADD CONDITIOnals TO make program work like a program
     
     # loop do
@@ -36,7 +35,12 @@ class CLI
     puts "Welcome!"
     # puts "This is a gem to let user's find healthy recipes!"
     puts ""
- 
+  end
+
+  def main_menu
+    puts "Do you want to choose a category of recipes?"
+    input = gets.strip.downcase
+    return input
   end
 
   def list_categories
@@ -67,11 +71,13 @@ class CLI
     self.get_recipe_info(selected_recipe) 
   end
 
+
   def get_recipe_info(recipe)
     RecipeScraper.scrape_ingredients_and_directions(recipe) 
     RecipeScraper.scrape_calories_page(recipe) unless recipe.in_depth_url == "Unavailable"
     self.display_recipe_info(recipe)
   end  
+
 
   def display_recipe_info(recipe)
     self.seperator
@@ -84,18 +90,15 @@ class CLI
 
     puts "\n\nIngredients: \n#{recipe.ingredients}"
 
-    puts "\nStep by step instructions: \n"
+    puts "\nStep by step instructions: \n\n"
     recipe.instructions.split("\n").delete_if(&:empty?).each_with_index{|step, i| puts "#{i+1}. #{step}"} 
-    # if recipe.in_depth_url == "Unavailable"
-    #   puts "Unavailable"
-    # else
-    #   recipe.instructions.split("\n").delete_if(&:empty?).each_with_index{|step, i| puts "#{i+1}. #{step}"} unless recipe.in_depth_url == "Unavailable" 
-    # end
     self.seperator
-    # binding.pry
   end
 
 
+  def exit
+    puts "\nThanks for trying this app out. Goodbye"
+  end
 
   # def choose_recipe_from_category
   #   puts "Please choose a recipe number:"
