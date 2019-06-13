@@ -1,39 +1,29 @@
 class CLI
 
   def call
-    ## greet user
     self.greeting
     RecipeScraper.make_recipes_from_categories
+
     loop do
       user_input = main_menu
+
       if user_input == "exit" || user_input.include?("n")
         return
       else
         self.list_categories
       end
+
     end
-    ## list out the categories
-  
-    ##### ADD CONDITIOnals TO make program work like a program
-    
-    # loop do
-    #   user_input = main_menu
-    #   if user_input == "exit" || user_input.include?("n")
-    #     return
-    #   else
-    #     self.list_categories
-    #     self.choose_categories
-    #   end
-    # end
-    ### maybeeeeeeee add a extra bonus choice for users to select individual foods
-    ### maybeeeee add code from food database project to let user find individual food macros
   end
+   
+    ### maybeeeee add code from food database project to let user find individual food macros
+ 
 
 
   def greeting
     puts ""
     puts "Welcome!"
-    # puts "This is a gem to let user's find healthy recipes!"
+    puts "This is a gem to let user's find healthy recipes!"
     puts ""
   end
 
@@ -44,7 +34,7 @@ class CLI
   end
 
   def list_categories
-    puts "Categories:\n"
+    puts "\n\nCategories:\n"
     Recipes.get_category_names.each.with_index(1){|category, index| puts "#{index}. #{category}"}
     self.choose_category
   end
