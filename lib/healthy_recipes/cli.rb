@@ -7,7 +7,7 @@ class CLI
     loop do
       user_input = main_menu
 
-      if user_input == "exit" || user_input.include?("n")
+      if user_input == "exit" #|| user_input.include?("n")
         self.exit
         return
       else
@@ -29,13 +29,13 @@ class CLI
   end
 
   def main_menu
-    puts "Enter anything other than 'exit' or 'n' to enter category selection menu:"
+    puts "Type anything to enter category selection menu: (Or 'exit' to exit)"
     input = gets.strip.downcase
     return input
   end
 
   def list_categories
-    puts "\n\nCategories:\n"
+    puts "\n\nCategories:\n\n"
     Recipes.get_category_names.each.with_index(1){|category, index| puts "#{index}. #{category}"}
     self.choose_category
   end
@@ -56,7 +56,6 @@ class CLI
 
     puts "\n\nPlease choose a recipe number:\n"
     recipe_index = gets.strip.to_i - 1
-
     selected_recipe = recipes[recipe_index]
     
     self.get_recipe_info(selected_recipe) 
@@ -83,6 +82,7 @@ class CLI
 
     puts "\nStep by step instructions: \n\n"
     recipe.instructions.split("\n").delete_if(&:empty?).each_with_index{|step, i| puts "#{i+1}. #{step}"} 
+    puts "\n"
     self.seperator
     puts "\n\n"
   end
@@ -99,9 +99,6 @@ class CLI
 
   ### make more classes so each class does one thing
 
-  def menu_guidance
-    puts "Type 'main' to go back to main menu, or 'exit' to exit."
-  end
 
   def reject_input
     puts "Invalid input, please try again."
