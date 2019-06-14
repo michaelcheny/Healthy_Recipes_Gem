@@ -61,41 +61,15 @@ class CLI
 
   end
 
-  ###backuip
-  # def choose_category
-
-  #   puts "\n\nPlease choose a valid category number: (or 'exit' to quit)\n"
-
-  #   user_selected_index = nil
-
-  #   until user_selected_index == "exit" || user_selected_index == "back"
-  #     user_selected_index = gets.strip
-
-  #     if user_selected_index.to_i.between?(1, Recipes.get_category_names.length)
-  #       category = Recipes.get_category_names[user_selected_index.to_i - 1]
-  #       self.choose_recipes_from_category(category)
-  #     elsif user_selected_index == "back"
-  #       self.go_back
-  #     elsif user_selected_index == "exit"
-  #       CLI.exit
-  #     else
-  #       puts "Please choose a valid category number: (or 'exit' to quit)"
-  #     end
-
-  #   end
-  # end
-
-
 
   def choose_recipes_from_category(selected_category)
     recipes = Recipes.group_by_category(selected_category)
     puts ""
+
     recipes.each.with_index(1){|recipe_object, index| puts "#{index}. #{recipe_object.name}"}
-    # binding.pry
     puts "\n\nPlease choose a recipe number: (or 'exit' to exit)\n"
-    # recipe_index = nil
-    # until recipe_index.to_i.between?(1, recipes.length)
     recipe_index = gets.strip
+    
     if recipe_index.to_i.between?(1, recipes.length)
       selected_recipe = recipes[recipe_index.to_i - 1]
       self.get_recipe_info(selected_recipe) 
@@ -109,7 +83,6 @@ class CLI
       sleep(2)
       self.choose_recipes_from_category(selected_category)
     end
-    # end
   end
 
 
@@ -121,8 +94,7 @@ class CLI
 
 
   def display_recipe_info(recipe)
-    self.seperator
-
+    puts "----------------------------------------------------------------------------"
     puts "\n#{recipe.name}\n\n"
     puts "Category:                  #{recipe.category}"
     puts "Animal friendly:           #{recipe.animal_friendly}\n"
@@ -134,10 +106,8 @@ class CLI
 
     puts "\nStep by step instructions: \n\n"
     recipe.instructions.split("\n").delete_if(&:empty?).each_with_index{|step, i| puts "#{i+1}. #{step}"} 
-    puts "\n"
+    puts "\n----------------------------------------------------------------------------\n\n"
 
-    self.seperator
-    puts "\n\n"
     self.ask_user_what_do_now
   end
 
@@ -147,7 +117,7 @@ class CLI
     if user_input == "back"
       return
     elsif user_input == "exit"
-      self.exit
+      exit
     end
   end
 
@@ -164,16 +134,12 @@ class CLI
 
 
 
-
-  ### make more classes so each class does one thingjkdskjdfhsjkfjhsjdfsjdfakjdalkdkasdaklsjdqwioeqiweqoiweuiqiowueqeqweqweqekaklsdjkasldja  a kdjaskl jakljsdjaslkdjkalsdakljsdljalskj dajjkdlaskjdajsdkljq123123149083490238490298349203894kldjklfjsdfsdf
-
-
   def reject_input
     puts "\nInvalid input, try again."
   end
 
-  def seperator
-    puts "----------------------------------------------------------------------------"
-  end
+  # def seperator
+  #   puts "----------------------------------------------------------------------------"
+  # end
 
 end
