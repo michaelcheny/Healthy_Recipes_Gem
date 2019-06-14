@@ -102,15 +102,24 @@ class CLI
     recipe.instructions.split("\n").delete_if(&:empty?).each_with_index{|step, i| puts "#{i+1}. #{step}"} 
     puts "\n----------------------------------------------------------------------------\n\n"
 
+    self.ask_user_what_to_do(recipe.category)
+  end
+
+
+  def ask_user_what_to_do(category_from_recipe_displayed)
     puts "(B)ack to recipe selection, (M)ain menu, or (Q)uit:"
     user_input = gets.strip.downcase
+
     if user_input == "b"
-      self.choose_recipes_from_category(recipe.category)
+      self.choose_recipes_from_category(category_from_recipe_displayed)
     elsif user_input == "m"
       self.list_categories
     elsif user_input == "q"
       self.farewell
       exit
+    else
+      self.reject_input
+      self.ask_user_what_to_do
     end
   end
 
