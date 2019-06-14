@@ -118,6 +118,7 @@ class CLI
       exit
     else
       self.reject_input
+      sleep(2)
       self.ask_user_what_to_do
     end
   end
