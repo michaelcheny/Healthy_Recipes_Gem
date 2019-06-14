@@ -49,9 +49,9 @@ class CLI
         category = Recipes.get_category_names[user_selected_index.to_i - 1]
         self.choose_recipes_from_category(category)
       elsif user_selected_index == "exit"
-        self.exit
+        self.go_back
       else
-        puts "WHAT? TRY AGAIN!"
+        puts "Please choose a valid category number: (or 'exit' to quit)"
       end
     end
   end
@@ -61,12 +61,20 @@ class CLI
     recipes = Recipes.group_by_category(selected_category)
     puts ""
     recipes.each.with_index(1){|recipe_object, index| puts "#{index}. #{recipe_object.name}"}
-
-    puts "\n\nPlease choose a recipe number:\n"
-    recipe_index = gets.strip.to_i - 1
-    selected_recipe = recipes[recipe_index]
-    
-    self.get_recipe_info(selected_recipe) 
+    # binding.pry
+    puts "\n\nPlease choose a recipe number: (or 'exit' to exit)\n"
+    recipe_index = nil
+    until recipe_index.to_i.between?(1, recipes.length)
+    recipe_index = gets.strip
+      if recipe_index.to_i.between?(1, recipes.length)
+        selected_recipe = recipes[recipe_index.to_i - 1]
+        self.get_recipe_info(selected_recipe) 
+      elsif recipe_index == "back"
+        self.go_back
+      else 
+        puts "Please choose a recipe number: (or 'exit' to exit)"
+      end
+    end
   end
 
 
@@ -93,8 +101,17 @@ class CLI
     puts "\n"
     self.seperator
     puts "\n\n"
+    # self.choose_category
   end
 
+  def ask_user_what_do_now
+    
+  end
+
+  def go_back
+    puts "Enter 'back' to return"
+    return
+  end
 
   def exit
     puts "\nThanks for trying this app out. Goodbye\n"
