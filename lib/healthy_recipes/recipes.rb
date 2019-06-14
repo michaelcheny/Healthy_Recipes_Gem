@@ -4,7 +4,6 @@ class Recipes
 
   attr_accessor :name, :url, :category, :type, :animal_friendly, :ingredients, :instructions, :in_depth_url, :macros, :calories
 
-    # will need to initialize recipes with more attrs
   def initialize(name = nil, url = nil, category = nil, animal_friendly = nil)
     @name = name
     @url = url

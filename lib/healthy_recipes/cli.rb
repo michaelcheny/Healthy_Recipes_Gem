@@ -41,7 +41,7 @@ class CLI
 
 
   def choose_category
-    puts "\n\nPlease choose a valid category number: or (Q)uit\n"
+    puts "\n\nPlease choose a valid category number or (Q)uit\n"
     user_selected_index = gets.strip.downcase
 
     if user_selected_index.to_i.between?(1, Recipes.get_category_names.length)
@@ -49,7 +49,6 @@ class CLI
       self.choose_recipes_from_category(category)
     elsif user_selected_index == "q"
       self.farewell
-      exit
     else
       self.reject_input
       self.list_categories
@@ -72,7 +71,6 @@ class CLI
       self.list_categories
     elsif recipe_index == "q"
       self.farewell
-      exit
     else 
       self.reject_input
       self.choose_recipes_from_category(selected_category)
@@ -91,8 +89,9 @@ class CLI
     puts "----------------------------------------------------------------------------"
     puts "\n#{recipe.name}\n\n"
     puts "Category:                  #{recipe.category}"
-    puts "Animal friendly:           #{recipe.animal_friendly}\n"
-    puts "Link to recipe:            #{recipe.url}\n\n"
+    puts "Animal friendly:           #{recipe.animal_friendly}\n\n"
+    # puts "Link to recipe:            #{recipe.url}\n\n"
+    ### add servings size
     puts "Estimated Calories:        #{recipe.calories}"
     puts "\n\nIngredients: \n#{recipe.ingredients}"
     puts "\nStep by step instructions: \n\n"
@@ -113,7 +112,6 @@ class CLI
       self.list_categories
     elsif user_input == "q"
       self.farewell
-      exit
     else
       self.reject_input
       self.ask_user_what_to_do
@@ -123,6 +121,7 @@ class CLI
 
   def farewell
     puts "\nThanks for trying this app out. Goodbye\n\n"
+    exit
   end
 
 
@@ -130,6 +129,5 @@ class CLI
     puts "\nInvalid input, try again."
     sleep(2)
   end
-
 
 end

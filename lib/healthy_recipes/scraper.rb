@@ -15,7 +15,6 @@ class RecipeScraper
     category_name_container[10..16].each{|container| categories << "Vegan " + container.text}  ## vegan
     
     return categories
-    binding.pry
   end
 
 
@@ -65,16 +64,14 @@ class RecipeScraper
       recipe_container = parsed_url.css("div.slot-6-7-8 h3##{selector}+ul.blist li a")
       recipe_container.each do |dish| 
         
-        name = dish.text.gsub(/^[ \t]/, "") ## clean up leading white space
+        name = dish.text.gsub(/^[ \t]/, "") 
         url = DOMAIN + "#{dish.attr("href")}"
         category = "#{each_category}"
         animal_friendly = category.include?("Vegan") ? "Yes" : "No"
 
         Recipes.new(name, url, category, animal_friendly)
-        # binding.pry
       end
     end
-    # binding.pry
   end
 
 
@@ -89,7 +86,6 @@ class RecipeScraper
       recipe.ingredients = steps.css("tr td ul.llist").text
       recipe.instructions = steps.css("p~ol").text
       recipe.in_depth_url = DOMAIN + steps.css("p b:contains('In-Depth Nutritional Profile')+a").attr('href').text unless steps.css("p b:contains('In-Depth Nutritional Profile')+a").attr('href').nil?
-
     end
   end
 
@@ -102,9 +98,7 @@ class RecipeScraper
     nutrient_container.each do |item|
 
       recipe.calories = item.css("tr td:contains('Calories')+td")[0].text.to_i.round unless recipe.in_depth_url == "Unavailable"
-    # binding.pry
     end
   end
-
 
 end
