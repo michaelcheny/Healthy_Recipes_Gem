@@ -17,7 +17,6 @@ class CLI
     end
   end
    
-    ### maybeeeee add code from food database project to let user find individual food macros
  
 
 
@@ -28,31 +27,41 @@ class CLI
     puts ""
   end
 
+
   def main_menu
     puts "Type anything to enter category selection menu: (Or 'exit' to exit)"
     input = gets.strip.downcase
     return input
   end
 
+
   def list_categories
     puts "\n\nCategories:\n\n"
     Recipes.get_category_names.each.with_index(1){|category, index| puts "#{index}. #{category}"}
+
     self.choose_category
   end
 
   def choose_category
-    puts "\n\nPlease choose category number: (or 'exit' to quit)\n"
+
+    puts "\n\nPlease choose a valid category number: (or 'exit' to quit)\n"
+
     user_selected_index = nil
-    until user_selected_index == "exit"
+
+    until user_selected_index == "exit" || "back"
       user_selected_index = gets.strip
+
       if user_selected_index.to_i.between?(1, Recipes.get_category_names.length)
         category = Recipes.get_category_names[user_selected_index.to_i - 1]
         self.choose_recipes_from_category(category)
-      elsif user_selected_index == "exit"
+      elsif user_selected_index == "back"
         self.go_back
+      elsif user_selected_index == "exit"
+        CLI.
       else
         puts "Please choose a valid category number: (or 'exit' to quit)"
       end
+
     end
   end
 
@@ -87,6 +96,7 @@ class CLI
 
   def display_recipe_info(recipe)
     self.seperator
+
     puts "\n#{recipe.name}\n\n"
     puts "Category:                  #{recipe.category}"
     puts "Animal friendly:           #{recipe.animal_friendly}\n"
@@ -99,13 +109,20 @@ class CLI
     puts "\nStep by step instructions: \n\n"
     recipe.instructions.split("\n").delete_if(&:empty?).each_with_index{|step, i| puts "#{i+1}. #{step}"} 
     puts "\n"
+
     self.seperator
     puts "\n\n"
-    # self.choose_category
+    # self.ask_user_what_do_now
   end
 
   def ask_user_what_do_now
-    
+    puts "Enter 'back' to go back or 'exit' to exit':"
+    user_input = gets.strip.downcase
+    if user_input == "back"
+      self.go_back
+    elsif user_input == "exit"
+      self.exit
+    end
   end
 
   def go_back
