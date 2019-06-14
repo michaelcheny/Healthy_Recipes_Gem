@@ -9,7 +9,6 @@ class CLI
 
       if user_input == "q" 
         self.farewell
-        return
       else
         self.list_categories
       end
@@ -90,8 +89,8 @@ class CLI
     puts "Category:                  #{recipe.category}"
     puts "Animal friendly:           #{recipe.animal_friendly}\n\n"
     # puts "Link to recipe:            #{recipe.url}\n\n"
-    ### add servings size
-    puts "Estimated Calories:        #{recipe.calories}"
+    puts "Serving size:              #{recipe.serving_size}"
+    puts "Calories per serving:      #{recipe.calories}"
     puts "\n\nIngredients: \n#{recipe.ingredients}"
     puts "\nStep by step instructions: \n\n"
     recipe.instructions.split("\n").delete_if(&:empty?).each_with_index{|step, i| puts "#{i+1}. #{step}"} 

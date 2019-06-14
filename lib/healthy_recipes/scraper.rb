@@ -84,7 +84,9 @@ class RecipeScraper
 
       recipe.ingredients = steps.css("tr td ul.llist").text
       recipe.instructions = steps.css("p~ol").text
+      recipe.serving_size = steps.css("p~ol~b:contains('Serves')").text.gsub("Serves ", "") unless steps.css("p~ol~b").empty?
       recipe.in_depth_url = DOMAIN + steps.css("p b:contains('In-Depth Nutritional Profile')+a").attr('href').text unless steps.css("p b:contains('In-Depth Nutritional Profile')+a").attr('href').nil?
+      
     end
   end
 
