@@ -46,7 +46,7 @@ class CLI
 
     if user_selected_index.to_i.between?(1, Recipes.get_category_names.length)
       category = Recipes.get_category_names[user_selected_index.to_i - 1]
-      self.choose_recipes_from_category(category)
+      self.recipe_selection_from_category(category)
     elsif user_selected_index == "q"
       self.farewell
     else
@@ -55,8 +55,8 @@ class CLI
     end
   end
 
-
-  def choose_recipes_from_category(selected_category)
+ 
+  def recipe_selection_from_category(selected_category)
     recipes = Recipes.group_by_category(selected_category)
   
     puts "\n#{selected_category}\n\n"
@@ -73,10 +73,9 @@ class CLI
       self.farewell
     else 
       self.reject_input
-      self.choose_recipes_from_category(selected_category)
+      self.recipe_selection_from_category(selected_category)
     end
   end
-
 
   def get_recipe_info(recipe)
     RecipeScraper.scrape_ingredients_and_directions(recipe) 
@@ -103,11 +102,11 @@ class CLI
 
 
   def ask_user_what_to_do(category_from_recipe_displayed)
-    puts "(B)ack to recipe selection or (M)ain menu or (Q)uit:"
+    puts "Choose (B)ack to recipe selection or (M)ain menu or (Q)uit:"
     user_input = gets.strip.downcase
 
     if user_input == "b"
-      self.choose_recipes_from_category(category_from_recipe_displayed)
+      self.recipe_selection_from_category(category_from_recipe_displayed)
     elsif user_input == "m"
       self.list_categories
     elsif user_input == "q"

@@ -2,7 +2,7 @@ class Recipes
 
   @@all = []
 
-  attr_accessor :name, :url, :category, :type, :animal_friendly, :ingredients, :instructions, :in_depth_url, :macros, :calories
+  attr_accessor :name, :url, :category, :type, :animal_friendly, :ingredients, :instructions, :in_depth_url, :macros, :calories, :servings
 
   def initialize(name = nil, url = nil, category = nil, animal_friendly = nil)
     @name = name
@@ -12,6 +12,7 @@ class Recipes
     @instructions = "Unavailable"
     @ingredients = "Unavailable"
     @in_depth_url = "Unavailable"
+    @servings = "Unavailable"
     @macros = "Unavailable"
     @calories = "Unavailable"
     self.class.all << self

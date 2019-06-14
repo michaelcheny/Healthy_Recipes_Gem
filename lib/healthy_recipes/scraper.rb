@@ -18,7 +18,6 @@ class RecipeScraper
   end
 
 
-
   def self.make_recipes_from_categories
     self.scrape_all_categories.each do |each_category|
 
