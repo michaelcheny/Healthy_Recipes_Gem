@@ -41,11 +41,19 @@ class CLI
   end
 
   def choose_category
-    puts "\n\nPlease choose category number:\n"
-    user_selected_index = gets.strip.to_i - 1
-    
-    category = Recipes.get_category_names[user_selected_index]
-    self.choose_recipes_from_category(category)
+    puts "\n\nPlease choose category number: (or 'exit' to quit)\n"
+    user_selected_index = nil
+    until user_selected_index == "exit"
+      user_selected_index = gets.strip
+      if user_selected_index.to_i.between?(1, Recipes.get_category_names.length)
+        category = Recipes.get_category_names[user_selected_index.to_i - 1]
+        self.choose_recipes_from_category(category)
+      elsif user_selected_index == "exit"
+        self.exit
+      else
+        puts "WHAT? TRY AGAIN!"
+      end
+    end
   end
 
 
@@ -90,6 +98,7 @@ class CLI
 
   def exit
     puts "\nThanks for trying this app out. Goodbye\n"
+    return
   end
 
  
@@ -97,7 +106,7 @@ class CLI
 
 
 
-  ### make more classes so each class does one thing
+  ### make more classes so each class does one thingjkdskjdfhsjkfjhsjdfsjdfakjdalkdkasdaklsjdqwioeqiweqoiweuiqiowueqeqweqweqekaklsdjkasldja  a kdjaskl jakljsdjaslkdjkalsdakljsdljalskj dajjkdlaskjdajsdkljq123123149083490238490298349203894kldjklfjsdfsdf
 
 
   def reject_input
