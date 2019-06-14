@@ -52,7 +52,6 @@ class CLI
       exit
     else
       self.reject_input
-      sleep(2)
       self.list_categories
     end
   end
@@ -76,7 +75,6 @@ class CLI
       exit
     else 
       self.reject_input
-      sleep(2)
       self.choose_recipes_from_category(selected_category)
     end
   end
@@ -118,7 +116,6 @@ class CLI
       exit
     else
       self.reject_input
-      sleep(2)
       self.ask_user_what_to_do
     end
   end
@@ -131,6 +128,7 @@ class CLI
 
   def reject_input
     puts "\nInvalid input, try again."
+    sleep(2)
   end
 
 
