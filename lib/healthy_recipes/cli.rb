@@ -7,7 +7,7 @@ class CLI
     loop do
       user_input = main_menu
 
-      if user_input == "exit" 
+      if user_input == "q" 
         self.farewell
         return
       else
@@ -26,7 +26,7 @@ class CLI
 
 
   def main_menu
-    puts "Type anything to enter main menu: (Or 'exit' to exit)"
+    puts "Type anything to enter main menu or 'Q' to (Q)uit"
     input = gets.strip.downcase
     return input
   end
@@ -41,13 +41,13 @@ class CLI
 
 
   def choose_category
-    puts "\n\nPlease choose a valid category number: (or 'exit' to quit)\n"
-    user_selected_index = gets.strip
+    puts "\n\nPlease choose a valid category number: or (Q)uit\n"
+    user_selected_index = gets.strip.downcase
 
     if user_selected_index.to_i.between?(1, Recipes.get_category_names.length)
       category = Recipes.get_category_names[user_selected_index.to_i - 1]
       self.choose_recipes_from_category(category)
-    elsif user_selected_index == "exit"
+    elsif user_selected_index == "q"
       self.farewell
       exit
     else
@@ -55,7 +55,6 @@ class CLI
       sleep(2)
       self.list_categories
     end
-
   end
 
 
@@ -64,15 +63,15 @@ class CLI
   
     puts "\n#{selected_category}\n\n"
     recipes.each.with_index(1){|recipe_object, index| puts "#{index}. #{recipe_object.name}"}
-    puts "\n\nPlease choose a recipe number: (or 'back' to return to previous menu, exit' to exit)\n"
-    recipe_index = gets.strip
+    puts "\n\nPlease enter a recipe number or (B)ack to main menu or (Q)uit\n"
+    recipe_index = gets.strip.downcase
 
     if recipe_index.to_i.between?(1, recipes.length)
       selected_recipe = recipes[recipe_index.to_i - 1]
       self.get_recipe_info(selected_recipe) 
-    elsif recipe_index == "back"
+    elsif recipe_index == "b"
       self.list_categories
-    elsif recipe_index == "exit"
+    elsif recipe_index == "q"
       self.farewell
       exit
     else 
@@ -107,7 +106,7 @@ class CLI
 
 
   def ask_user_what_to_do(category_from_recipe_displayed)
-    puts "(B)ack to recipe selection, (M)ain menu, or (Q)uit:"
+    puts "(B)ack to recipe selection or (M)ain menu or (Q)uit:"
     user_input = gets.strip.downcase
 
     if user_input == "b"
