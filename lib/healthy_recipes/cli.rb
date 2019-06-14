@@ -7,18 +7,15 @@ class CLI
     loop do
       user_input = main_menu
 
-      if user_input == "exit" #|| user_input.include?("n")
-        self.exit
+      if user_input == "exit" 
+        self.farewell
         return
       else
         self.list_categories
       end
-
     end
   end
    
- 
-
 
   def greeting
     puts ""
@@ -29,7 +26,7 @@ class CLI
 
 
   def main_menu
-    puts "Type anything to enter category selection menu: (Or 'exit' to exit)"
+    puts "Type anything to enter main menu: (Or 'exit' to exit)"
     input = gets.strip.downcase
     return input
   end
@@ -64,17 +61,17 @@ class CLI
 
   def choose_recipes_from_category(selected_category)
     recipes = Recipes.group_by_category(selected_category)
-    puts ""
-
+  
+    puts "\n#{selected_category}\n\n"
     recipes.each.with_index(1){|recipe_object, index| puts "#{index}. #{recipe_object.name}"}
-    puts "\n\nPlease choose a recipe number: (or 'exit' to exit)\n"
+    puts "\n\nPlease choose a recipe number: (or 'back' to return to previous menu, exit' to exit)\n"
     recipe_index = gets.strip
-    
+
     if recipe_index.to_i.between?(1, recipes.length)
       selected_recipe = recipes[recipe_index.to_i - 1]
       self.get_recipe_info(selected_recipe) 
     elsif recipe_index == "back"
-      self.go_back
+      self.list_categories
     elsif recipe_index == "exit"
       self.farewell
       exit
@@ -99,47 +96,33 @@ class CLI
     puts "Category:                  #{recipe.category}"
     puts "Animal friendly:           #{recipe.animal_friendly}\n"
     puts "Link to recipe:            #{recipe.url}\n\n"
-
     puts "Estimated Calories:        #{recipe.calories}"
-
     puts "\n\nIngredients: \n#{recipe.ingredients}"
-
     puts "\nStep by step instructions: \n\n"
     recipe.instructions.split("\n").delete_if(&:empty?).each_with_index{|step, i| puts "#{i+1}. #{step}"} 
     puts "\n----------------------------------------------------------------------------\n\n"
 
-    self.ask_user_what_do_now
-  end
-
-  def ask_user_what_do_now
-    puts "Enter 'back' to go back or 'exit' to exit':"
+    puts "(B)ack to recipe selection, (M)ain menu, or (Q)uit:"
     user_input = gets.strip.downcase
-    if user_input == "back"
-      return
-    elsif user_input == "exit"
+    if user_input == "b"
+      self.choose_recipes_from_category(recipe.category)
+    elsif user_input == "m"
+      self.list_categories
+    elsif user_input == "q"
+      self.farewell
       exit
     end
   end
 
-  def go_back
-    puts "Enter 'back' to return"
-    return
-  end
 
   def farewell
     puts "\nThanks for trying this app out. Goodbye\n\n"
   end
-
- 
-
 
 
   def reject_input
     puts "\nInvalid input, try again."
   end
 
-  # def seperator
-  #   puts "----------------------------------------------------------------------------"
-  # end
 
 end
