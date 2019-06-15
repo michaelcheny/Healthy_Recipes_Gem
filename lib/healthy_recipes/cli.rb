@@ -8,8 +8,8 @@ class CLI
    
 
   def greeting
-    puts "\nWelcome!"
-    puts "This is a gem to let user's find healthy recipes!\n"
+    puts "\n\nWelcome!"
+    puts "This is a gem to let user's find healthy recipes!\n\n"
   end
 
 
@@ -59,7 +59,8 @@ class CLI
 
     if recipe_index.to_i.between?(1, recipes.length)
       selected_recipe = recipes[recipe_index.to_i - 1]
-      self.get_recipe_info(selected_recipe) 
+      Recipes.get_recipe_info(selected_recipe) 
+      self.display_recipe_info(selected_recipe)
     elsif recipe_index == "b"
       self.list_categories
     elsif recipe_index == "q"
@@ -69,12 +70,6 @@ class CLI
       self.recipe_selection_from_category(selected_category)
     end
   end
-
-  def get_recipe_info(recipe)
-    RecipeScraper.scrape_ingredients_and_directions(recipe) 
-    RecipeScraper.scrape_calories_page(recipe) unless recipe.in_depth_url == "Unavailable"
-    self.display_recipe_info(recipe)
-  end  
 
 
   def display_recipe_info(recipe)

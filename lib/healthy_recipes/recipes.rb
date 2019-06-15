@@ -29,4 +29,10 @@ class Recipes
     self.all.map{|recipe| recipe if recipe.category == user_selected_category}.compact
   end
 
+  def self.get_recipe_info(recipe)
+    RecipeScraper.scrape_ingredients_and_directions(recipe)
+    RecipeScraper.scrape_calories_page(recipe) unless recipe.in_depth_url == "Unavailable"
+    return recipe
+  end
+
 end
