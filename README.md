@@ -24,6 +24,14 @@ Or install it yourself as:
 
 TODO: Write usage instructions here
 
+`cd` into the main folder of `Healthy_Recipes`
+
+`bin/healthy_recipes` to start the application.
+
+Follow the prompts on screen to navigate within the application.
+
+Enter `Q or q` anytime to quit.
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.

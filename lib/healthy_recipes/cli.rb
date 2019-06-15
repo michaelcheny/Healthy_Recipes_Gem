@@ -88,7 +88,6 @@ class CLI
     puts "\n#{recipe.name}\n\n"
     puts "Category:                  #{recipe.category}"
     puts "Animal friendly:           #{recipe.animal_friendly}\n\n"
-    # puts "Link to recipe:            #{recipe.url}\n\n"
     puts "Serving size:              #{recipe.serving_size}"
     puts "Calories per serving:      #{recipe.calories}"
     puts "\n\nIngredients: \n#{recipe.ingredients}"
