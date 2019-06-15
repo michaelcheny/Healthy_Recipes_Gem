@@ -1,6 +1,6 @@
 # HealthyRecipes
 
-Welcome to Healthy Recipes! This command line application is to let users select healthy recipes based on the category of the dish. Healthy Recipes scrapes `http://www.whfoods.com/index.php` recipe page for over 500 recipes. When the application is first launched, the user will be asked to enter anything to let the program know to continue to the main menu. Once in, the user can follow the prompts to navigate the program. This program was meant to be as user-friendly as possible.
+Welcome to Healthy Recipes! This command line application is to let users select healthy recipes based on the category of the dish. Healthy Recipes scrapes `http://www.whfoods.com/index.php` recipe page for over 500 recipes and displays information about the recipe(serving size, calories per serving, vegan friendliness, ingredients, and step by step instructions). When the application is first launched, the user will be asked to enter anything to let the program know to continue to the main menu. Once in, the user can follow the prompts to navigate the program. This program was meant to be as user-friendly as possible.
 
 ## Installation
 
@@ -17,7 +17,6 @@ And then execute:
 Or install it yourself as:
 
     $ gem install healthy_recipes
-
 
 Users can also `git clone` this gem into their directory of choice.
 

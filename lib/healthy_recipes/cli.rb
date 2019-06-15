@@ -3,31 +3,25 @@ class CLI
   def call
     self.greeting
     RecipeScraper.make_recipes_from_categories
-
-    loop do
-      user_input = main_menu
-
-      if user_input == "q" 
-        self.farewell
-      else
-        self.list_categories
-      end
-    end
+    self.main_menu
   end
    
 
   def greeting
-    puts ""
-    puts "Welcome!"
-    puts "This is a gem to let user's find healthy recipes!"
-    puts ""
+    puts "\nWelcome!"
+    puts "This is a gem to let user's find healthy recipes!\n"
   end
 
 
   def main_menu
     puts "Type anything to enter main menu or 'Q' to (Q)uit"
-    input = gets.strip.downcase
-    return input
+    user_input = gets.strip.downcase
+
+    if user_input == "q"
+      self.farewell
+    else
+      self.list_categories
+    end 
   end
 
 
