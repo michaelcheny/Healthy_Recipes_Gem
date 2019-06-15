@@ -1,8 +1,6 @@
 # HealthyRecipes
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/healthy_recipes`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Welcome to Healthy Recipes! This command line application is to let users select healthy recipes based on the category of the dish. Healthy Recipes scrapes `http://www.whfoods.com/index.php` recipe page for over 500 recipes. When the application is first launched, the user will be asked to enter anything to let the program know to continue to the main menu. Once in, the user can follow the prompts to navigate the program. This program was meant to be as user-friendly as possible.
 
 ## Installation
 
@@ -20,9 +18,10 @@ Or install it yourself as:
 
     $ gem install healthy_recipes
 
-## Usage
 
-TODO: Write usage instructions here
+Users can also `git clone` this gem into their directory of choice.
+
+## Usage
 
 `cd` into the main folder of `Healthy_Recipes`
 
@@ -30,7 +29,7 @@ TODO: Write usage instructions here
 
 Follow the prompts on screen to navigate within the application.
 
-Enter `Q or q` anytime to quit.
+Enter `Q` anytime to quit.
 
 ## Development
 
