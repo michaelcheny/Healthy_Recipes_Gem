@@ -27,7 +27,7 @@ class CLI
 
   def list_categories
     puts "\n\nCategories:\n\n"
-    Recipes.get_category_names.each.with_index(1){|category, index| puts "#{index}. #{category}"}
+    Recipes.get_category_names.each.with_index(1){|category, index| puts "(#{index})  #{category}"}
 
     self.choose_category
   end
@@ -53,7 +53,7 @@ class CLI
     recipes = Recipes.group_by_category(selected_category)
   
     puts "\n#{selected_category}\n\n"
-    recipes.each.with_index(1){|recipe_object, index| puts "#{index}. #{recipe_object.name}"}
+    recipes.each.with_index(1){|recipe_object, index| puts "(#{index})  #{recipe_object.name}"}
     puts "\n\nPlease enter a recipe number or (B)ack to main menu or (Q)uit\n"
     recipe_index = gets.strip.downcase
 
@@ -79,9 +79,9 @@ class CLI
     puts "Animal friendly:           #{recipe.animal_friendly}\n\n"
     puts "Serving size:              #{recipe.serving_size}"
     puts "Calories per serving:      #{recipe.calories}"
-    puts "\n\nIngredients: \n#{recipe.ingredients}"
+    puts "\n\nIngredients:         \n#{recipe.ingredients}"
     puts "\nStep by step instructions: \n\n"
-    recipe.instructions.split("\n").delete_if(&:empty?).each_with_index{|step, i| puts "#{i+1}. #{step}"} 
+    recipe.instructions.each_with_index{|step, i| puts "#{i+1} - #{step}"} 
     puts "\n----------------------------------------------------------------------------\n\n"
 
     self.ask_user_what_to_do(recipe.category)

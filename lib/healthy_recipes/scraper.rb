@@ -4,15 +4,14 @@ class RecipeScraper
   PATH_TO_RECIPE_PAGE = "recipestoc.php"
 
    
-    ## scrape all the categories to start off
   def self.scrape_all_categories
 
     parsed_url = Nokogiri::HTML(open(DOMAIN + PATH_TO_RECIPE_PAGE))
     category_name_container = parsed_url.css("div.slot-6-7-8 h2#recipes~h3")
 
     categories = []
-    category_name_container[0..9].each{|container| categories << container.text} ## non vegan
-    category_name_container[10..16].each{|container| categories << "Vegan " + container.text}  ## vegan
+    category_name_container[0..9].each{|container| categories << container.text} 
+    category_name_container[10..16].each{|container| categories << "Vegan " + container.text}  
     
     return categories
   end
@@ -68,13 +67,12 @@ class RecipeScraper
         category = "#{each_category}"
         animal_friendly = category.include?("Vegan") ? "Yes" : "No"
 
-        Recipes.new(name, url, category, animal_friendly)
+        recipe = Recipes.new(name, url, category, animal_friendly)
       end
     end
   end
 
-
-    ## scrapes the second layer for ingredients, direction, and url for 3rd page.
+    
   def self.scrape_ingredients_and_directions(recipe)
 
     recipe_url = recipe.url
@@ -83,14 +81,13 @@ class RecipeScraper
     level_one_container.each do |steps|
 
       recipe.ingredients = steps.css("tr td ul.llist").text
-      recipe.instructions = steps.css("p~ol").text
+      recipe.instructions = steps.css("p~ol").text.split("\n").delete_if(&:empty?)
       recipe.serving_size = steps.css("p~ol~b:contains('Serves')").text.gsub("Serves ", "") unless steps.css("p~ol~b").empty?
       recipe.in_depth_url = DOMAIN + steps.css("p b:contains('In-Depth Nutritional Profile')+a").attr('href').text unless steps.css("p b:contains('In-Depth Nutritional Profile')+a").attr('href').nil?
-      
     end
   end
 
-    # scrape level 3 for calories
+    
   def self.scrape_calories_page(recipe)
 
     recipe_page_2_url = recipe.in_depth_url
