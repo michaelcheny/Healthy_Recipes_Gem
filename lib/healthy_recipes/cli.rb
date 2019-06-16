@@ -105,14 +105,17 @@ class CLI
     end
   end
 
+
   def list_with_index_helper(list)
     list.each_with_index{|item, index| puts "(#{index + 1}) #{item}"}
   end
+
 
   def recipe_list_helper(list)
     list.each_with_index{|recipe, index| puts "(#{index + 1}) #{recipe.name}"}
   end
 
+  
   def farewell
     puts "\nThanks for trying this app out. Goodbye\n\n"
     exit
