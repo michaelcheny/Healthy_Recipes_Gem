@@ -1,9 +1,9 @@
 class CLI
 
   def call
-    greeting
+    self.greeting
     RecipeScraper.make_recipes_from_categories
-    main_menu
+    self.main_menu
   end
    
 
@@ -18,18 +18,18 @@ class CLI
     user_input = gets.strip.downcase
 
     if user_input == "q"
-      farewell
+      self.farewell
     else
-      list_categories
+      self.list_categories
     end 
   end
 
 
   def list_categories
     puts "\n\nCategories:\n\n"
-    list_with_index_helper(Recipes.get_category_names)
+    self.list_with_index_helper(Recipes.get_category_names)
 
-    choose_category
+    self.choose_category
   end
 
 
@@ -39,12 +39,12 @@ class CLI
 
     if user_selected_index.to_i.between?(1, Recipes.get_category_names.length)
       category = Recipes.get_category_names[user_selected_index.to_i - 1]
-      recipe_selection_from_category(category)
+      self.recipe_selection_from_category(category)
     elsif user_selected_index == "q"
-      farewell
+      self.farewell
     else
-      reject_input
-      list_categories
+      self.reject_input
+      self.list_categories
     end
   end
 
@@ -54,21 +54,21 @@ class CLI
   
     puts "\n#{selected_category}\n\n"
 
-    recipe_list_helper(recipes)
+    self.recipe_list_helper(recipes)
     puts "\n\nPlease enter a recipe number or (B)ack to main menu or (Q)uit\n"
     recipe_index = gets.strip.downcase
 
     if recipe_index.to_i.between?(1, recipes.length)
       selected_recipe = recipes[recipe_index.to_i - 1]
       Recipes.get_recipe_info(selected_recipe) 
-      display_recipe_info(selected_recipe)
+      self.display_recipe_info(selected_recipe)
     elsif recipe_index == "b"
-      list_categories
+      self.list_categories
     elsif recipe_index == "q"
-      farewell
+      self.farewell
     else 
-      reject_input
-      recipe_selection_from_category(selected_category)
+      self.reject_input
+      self.recipe_selection_from_category(selected_category)
     end
   end
 
@@ -82,10 +82,10 @@ class CLI
     puts "Calories per serving:      #{recipe.calories}"
     puts "\n\nIngredients:         \n#{recipe.ingredients}"
     puts "\nStep by step instructions: \n\n"
-    list_with_index_helper(recipe.instructions)
+    self.list_with_index_helper(recipe.instructions)
     puts "\n----------------------------------------------------------------------------\n\n"
 
-    ask_user_what_to_do(recipe.category)
+    self.ask_user_what_to_do(recipe.category)
   end
 
 
@@ -94,13 +94,13 @@ class CLI
     user_input = gets.strip.downcase
 
     if user_input == "b"
-      recipe_selection_from_category(category_from_recipe_displayed)
+      self.recipe_selection_from_category(category_from_recipe_displayed)
     elsif user_input == "m"
-      list_categories
+      self.list_categories
     elsif user_input == "q"
-      farewell
+      self.farewell
     else
-      reject_input
+      self.reject_input
       ask_user_what_to_do(category_from_recipe_displayed)
     end
   end
