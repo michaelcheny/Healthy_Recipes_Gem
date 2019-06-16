@@ -27,7 +27,7 @@ class CLI
 
   def list_categories
     puts "\n\nCategories:\n\n"
-    self.list_helper(Recipes.get_category_names)
+    self.list_with_index_helper(Recipes.get_category_names)
 
     self.choose_category
   end
@@ -53,6 +53,7 @@ class CLI
     recipes = Recipes.group_by_category(selected_category)
   
     puts "\n#{selected_category}\n\n"
+
     self.recipe_list_helper(recipes)
     puts "\n\nPlease enter a recipe number or (B)ack to main menu or (Q)uit\n"
     recipe_index = gets.strip.downcase
@@ -81,7 +82,7 @@ class CLI
     puts "Calories per serving:      #{recipe.calories}"
     puts "\n\nIngredients:         \n#{recipe.ingredients}"
     puts "\nStep by step instructions: \n\n"
-    self.list_helper(recipe.instructions)
+    self.list_with_index_helper(recipe.instructions)
     puts "\n----------------------------------------------------------------------------\n\n"
 
     self.ask_user_what_to_do(recipe.category)
@@ -104,15 +105,13 @@ class CLI
     end
   end
 
-
-  def list_helper(list)
+  def list_with_index_helper(list)
     list.each_with_index{|item, index| puts "(#{index + 1}) #{item}"}
   end
 
   def recipe_list_helper(list)
     list.each_with_index{|recipe, index| puts "(#{index + 1}) #{recipe.name}"}
   end
-  
 
   def farewell
     puts "\nThanks for trying this app out. Goodbye\n\n"
