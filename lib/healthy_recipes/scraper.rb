@@ -95,7 +95,7 @@ class RecipeScraper
     nutrient_container = parsed_url.css("div.slot-6-7-8  table")
     nutrient_container.each do |item|
 
-      recipe.calories = item.css("tr td:contains('Calories')+td")[0].text.to_i.round unless recipe.in_depth_url == "Unavailable"
+      recipe.calories = item.css("tr td:contains('Calories')+td")[0].text.to_i.round 
     end
   end
 

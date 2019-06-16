@@ -53,7 +53,6 @@ class CLI
     recipes = Recipes.group_by_category(selected_category)
   
     puts "\n#{selected_category}\n\n"
-    # recipes.each.with_index(1){|recipe_object, index| puts "(#{index})  #{recipe_object.name}"}
     self.recipe_list_helper(recipes)
     puts "\n\nPlease enter a recipe number or (B)ack to main menu or (Q)uit\n"
     recipe_index = gets.strip.downcase
