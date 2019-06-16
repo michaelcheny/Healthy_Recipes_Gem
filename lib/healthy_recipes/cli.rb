@@ -115,9 +115,9 @@ class CLI
     list.each_with_index{|recipe, index| puts "(#{index + 1}) #{recipe.name}"}
   end
 
-  
+
   def farewell
-    puts "\nThanks for trying this app out. Goodbye\n\n"
+    puts "\nThanks for trying this app out. Stay tuned for more updates and features. Goodbye\n\n"
     exit
   end
 
