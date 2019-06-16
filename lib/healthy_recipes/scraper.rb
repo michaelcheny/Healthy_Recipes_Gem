@@ -67,7 +67,7 @@ class RecipeScraper
         category = "#{each_category}"
         animal_friendly = category.include?("Vegan") ? "Yes" : "No"
 
-        recipe = Recipes.new(name, url, category, animal_friendly)
+        Recipes.new(name, url, category, animal_friendly)
       end
     end
   end
