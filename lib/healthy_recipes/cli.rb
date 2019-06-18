@@ -101,8 +101,14 @@ class CLI
       self.farewell
     else
       self.reject_input
-      ask_user_what_to_do(category_from_recipe_displayed)
+      self.ask_user_what_to_do(category_from_recipe_displayed)
     end
+  end
+
+
+  def reject_input
+    puts "\nInvalid input, try again."
+    sleep(2)
   end
 
 
@@ -119,12 +125,6 @@ class CLI
   def farewell
     puts "\nThanks for trying this app out. Stay tuned for more updates and features. Goodbye\n\n"
     exit
-  end
-
-
-  def reject_input
-    puts "\nInvalid input, try again."
-    sleep(2)
   end
 
 end

@@ -75,7 +75,6 @@ class RecipeScraper
     
   def self.scrape_ingredients_and_directions(recipe)
 
-
     recipe_url = recipe.url
     parsed_url = Nokogiri::HTML(open(recipe_url))
     level_one_container = parsed_url.css("div.slot-6-7-8")
@@ -86,7 +85,6 @@ class RecipeScraper
       recipe.serving_size = steps.css("p~ol~b:contains('Serves')").text.gsub("Serves ", "") unless steps.css("p~ol~b").empty?
       recipe.in_depth_url = DOMAIN + steps.css("p b:contains('In-Depth Nutritional Profile')+a").attr('href').text unless steps.css("p b:contains('In-Depth Nutritional Profile')+a").attr('href').nil?
       
-    
     end
   end
 
