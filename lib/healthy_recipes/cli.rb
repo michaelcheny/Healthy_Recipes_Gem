@@ -60,8 +60,9 @@ class CLI
 
     if recipe_index.to_i.between?(1, recipes.length)
       selected_recipe = recipes[recipe_index.to_i - 1]
-      Recipes.get_recipe_info(selected_recipe) 
-      self.display_recipe_info(selected_recipe)
+      
+      self.get_recipe_info(selected_recipe) unless selected_recipe.ingredients != "Unavailable"
+      # self.display_recipe_info(selected_recipe)
     elsif recipe_index == "b"
       self.list_categories
     elsif recipe_index == "q"
@@ -103,6 +104,12 @@ class CLI
       self.reject_input
       self.ask_user_what_to_do(category_from_recipe_displayed)
     end
+  end
+
+  def get_recipe_info(recipe)
+    RecipeScraper.scrape_ingredients_and_directions(recipe)
+    RecipeScraper.scrape_calories_page(recipe) unless recipe.in_depth_url == "Unavailable"
+    self.display_recipe_info(recipe)
   end
 
 

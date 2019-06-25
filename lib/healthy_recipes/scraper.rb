@@ -18,6 +18,7 @@ class RecipeScraper
 
 
   def self.make_recipes_from_categories
+    
     self.scrape_all_categories.each do |each_category|
 
       case each_category
@@ -76,6 +77,7 @@ class RecipeScraper
   def self.scrape_ingredients_and_directions(recipe)
 
     recipe_url = recipe.url
+
     parsed_url = Nokogiri::HTML(open(recipe_url))
     level_one_container = parsed_url.css("div.slot-6-7-8")
     level_one_container.each do |steps|
