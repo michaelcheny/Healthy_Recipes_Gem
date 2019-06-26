@@ -61,8 +61,7 @@ class CLI
     if recipe_index.to_i.between?(1, recipes.length)
       selected_recipe = recipes[recipe_index.to_i - 1]
       
-      self.get_recipe_info(selected_recipe) unless selected_recipe.ingredients != "Unavailable"
-      # self.display_recipe_info(selected_recipe)
+      self.get_recipe_info(selected_recipe) if selected_recipe
     elsif recipe_index == "b"
       self.list_categories
     elsif recipe_index == "q"
