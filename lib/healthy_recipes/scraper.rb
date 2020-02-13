@@ -6,7 +6,7 @@ class RecipeScraper
    
   def self.scrape_all_categories
 
-    parsed_url = Nokogiri::HTML(open(DOMAIN + PATH_TO_RECIPE_PAGE))
+    parsed_url = Nokogiri::HTML(URI.open(DOMAIN + PATH_TO_RECIPE_PAGE))
     category_name_container = parsed_url.css("div.slot-6-7-8 h2#recipes~h3")
 
     categories = []
@@ -59,7 +59,7 @@ class RecipeScraper
         selector = "vdessert" 
       end
 
-      parsed_url = Nokogiri::HTML(open(DOMAIN + PATH_TO_RECIPE_PAGE))
+      parsed_url = Nokogiri::HTML(URI.open(DOMAIN + PATH_TO_RECIPE_PAGE))
       recipe_container = parsed_url.css("div.slot-6-7-8 h3##{selector}+ul.blist li a")
       recipe_container.each do |dish| 
         
@@ -78,7 +78,7 @@ class RecipeScraper
 
     recipe_url = recipe.url
 
-    parsed_url = Nokogiri::HTML(open(recipe_url))
+    parsed_url = Nokogiri::HTML(URI.open(recipe_url))
     level_one_container = parsed_url.css("div.slot-6-7-8")
     level_one_container.each do |steps|
 
@@ -94,7 +94,7 @@ class RecipeScraper
   def self.scrape_calories_page(recipe)
 
     recipe_page_2_url = recipe.in_depth_url
-    parsed_url = Nokogiri::HTML(open(recipe_page_2_url))
+    parsed_url = Nokogiri::HTML(URI.open(recipe_page_2_url))
     nutrient_container = parsed_url.css("div.slot-6-7-8  table")
     nutrient_container.each do |item|
 
